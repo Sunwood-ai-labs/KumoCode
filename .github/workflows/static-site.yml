@@ -38,6 +38,7 @@ jobs:
         run: npm run build
         env:
           NODE_ENV: production
+          NEXT_PUBLIC_DEFAULT_THEME: ocean
 
       - name: Setup Pages
         uses: actions/configure-pages@v4

@@ -12,13 +12,16 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  // Get default theme from environment variable (defaults to 'system')
+  const defaultTheme = process.env.NEXT_PUBLIC_DEFAULT_THEME || 'system'
+
   return (
     <html lang="ja" suppressHydrationWarning>
       <head>
         <link rel="icon" type="image/svg+xml" href="/images/favicon.svg" />
       </head>
       <body>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme={defaultTheme} enableSystem>
           {children}
         </ThemeProvider>
       </body>
