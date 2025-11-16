@@ -645,7 +645,7 @@ body.dark-mode .theme-option-desc {
 }
 
 .article-container {
-    max-width: 900px;
+    max-width: 1400px;
     margin: 0 auto;
 }
 
@@ -670,6 +670,20 @@ body.dark-mode .theme-option-desc {
 }
 
 /* ==========================================
+   Article with TOC Layout
+   ========================================== */
+.article-with-toc {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+}
+
+.article-content-wrapper {
+    flex: 1;
+    min-width: 0;
+}
+
+/* ==========================================
    Table of Contents
    ========================================== */
 .toc {
@@ -678,10 +692,15 @@ body.dark-mode .theme-option-desc {
     border: 1px solid var(--border-color);
     border-radius: 16px;
     padding: 24px;
-    margin-bottom: 40px;
     box-shadow: var(--shadow-sm);
     transition: var(--transition-base);
     display: none;
+    width: 280px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 24px;
+    max-height: calc(100vh - 48px);
+    overflow-y: auto;
 }
 
 .toc.visible {
@@ -1218,6 +1237,19 @@ a:focus {
 /* ==========================================
    Responsive Design
    ========================================== */
+@media (max-width: 1024px) {
+    .article-with-toc {
+        flex-direction: column;
+    }
+
+    .toc {
+        position: static;
+        width: 100%;
+        max-height: none;
+        margin-bottom: 32px;
+    }
+}
+
 @media (max-width: 768px) {
     .main-wrapper {
         padding: 24px 16px;
