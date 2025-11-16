@@ -1,26 +1,36 @@
 # KumoCode
 
-マークダウン技術記事プレビューアプリケーション
+Modern Markdown Documentation Platform inspired by Docusaurus architecture.
 
 ![KumoCode](https://img.shields.io/badge/version-1.0.0-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
+![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Ready-success.svg)
 
 ## 概要
 
-KumoCodeは、マークダウンで書かれた技術記事をブラウザ上で美しくプレビューできるWebアプリケーションです。モダンなデザインで快適な記事閲覧体験を提供します。
+KumoCodeは、Docusaurusのアーキテクチャを参考にした、マークダウンベースのドキュメントプラットフォームです。GitHub Pagesでの静的ホスティングに最適化されており、美しいYAMLテーマシステムを搭載しています。
 
 ## 特徴
 
-- 📝 **Markdownプレビュー**: リアルタイムでマークダウンをHTMLに変換して表示
-- 🎨 **モダンなデザイン**: グラスモーフィズムとグラデーションを使った美しいUI
-- 🌓 **ダークモード対応**: ライト/ダークモードの切り替えが可能
-- 💻 **シンタックスハイライト**: 13の主要言語をサポート（Python, JavaScript, TypeScript等）
-- 📐 **数式表示**: KaTeXを使用した数式レンダリング
-- 🔗 **目次の自動生成**: 記事内の見出しから目次を自動生成
-- 📱 **レスポンシブデザイン**: スマートフォンやタブレットにも対応
-- 🎯 **カードグリッドレイアウト**: 記事一覧を美しいカードで表示
-- ⚡ **軽量で高速**: シンプルな構成で素早く起動
-- 🔧 **カスタマイズ可能**: .envファイルで簡単に設定変更
+### コア機能
+- 📝 **Markdown記事**: フロントマター対応のMarkdownファイル
+- 🎨 **YAMLテーマシステム**: 複数のテーマとライト/ダークモード
+- 🚀 **GitHub Pages対応**: 静的サイトとして完璧に動作
+- 📱 **レスポンシブデザイン**: 全デバイス対応
+- ⚡ **高速**: 静的ファイル生成で最適化
+
+### リッチコンテンツ
+- 💻 **シンタックスハイライト**: Highlight.jsで13言語以上
+- 📐 **数式サポート**: KaTeXによるLaTeX数式
+- 📊 **図表**: Mermaid図表サポート
+- 🎬 **メディア埋め込み**: YouTube、Twitter、ニコニコ動画対応
+- 🔗 **自動目次**: 見出しから自動生成
+
+### Docusaurus風アーキテクチャ
+- 🔧 **config.js**: docusaurus.config.js相当の設定ファイル
+- 📦 **ビルドプロセス**: 静的JSON生成
+- 🌐 **ベースURL対応**: サブパスでのデプロイ対応
+- 404 **ハンドリング**: SPAルーティング対応
 
 ## デモ
 
@@ -52,32 +62,36 @@ KumoCodeは、マークダウンで書かれた技術記事をブラウザ上で
 - CORS
 - dotenv - 環境変数管理
 
-## インストール
+## Quick Start
 
 ### 前提条件
 - Node.js 16.0.0 以上
 
-### セットアップ
+### ローカル開発
 
-1. リポジトリをクローン
 ```bash
+# 1. リポジトリをクローン
 git clone <repository-url>
 cd KumoCode
-```
 
-2. 依存関係をインストール
-```bash
+# 2. 依存関係をインストール
 npm install
-```
 
-3. サーバーを起動
-```bash
+# 3. 開発サーバーを起動
 npm start
+
+# 4. ブラウザでアクセス
+# http://localhost:3000
 ```
 
-4. ブラウザでアクセス
-```
-http://localhost:3000
+### プロダクションビルド
+
+```bash
+# 静的ファイルをビルド
+npm run build
+
+# ビルドをプレビュー
+npm run serve
 ```
 
 ## 使い方
@@ -145,90 +159,122 @@ $$
 - インライン数式: `$...$`
 - ブロック数式: `$$...$$`
 
+## Configuration
+
+サイトは `config.js` で設定します（Docusaurusの `docusaurus.config.js` に相当）:
+
+```javascript
+window.kumoConfig = {
+  // デプロイ用ベースURL（自動検出または手動設定）
+  baseUrl: '/',
+
+  // デフォルトテーマ
+  defaultTheme: 'ocean',
+
+  // サイトメタデータ
+  title: 'KumoCode',
+  tagline: 'Modern Markdown Documentation Platform',
+
+  // GitHub情報
+  organizationName: 'Sunwood-ai-labs',
+  projectName: 'KumoCode',
+};
+```
+
 ## プロジェクト構成
 
 ```
 KumoCode/
-├── articles/              # マークダウン記事
-│   ├── getting-started-with-react.md
-│   ├── typescript-best-practices.md
-│   └── docker-basics.md
-├── css/
-│   └── style.css         # スタイルシート
-├── js/
-│   └── app.js            # フロントエンドロジック
-├── index.html            # メインHTML
-├── server.js             # Expressサーバー
-├── package.json          # 依存関係
-└── README.md             # このファイル
+├── articles/          # Markdown記事
+│   ├── example.md
+│   └── ...
+├── themes/            # YAMLテーマ定義
+│   ├── ocean.yaml
+│   ├── default.yaml
+│   └── ...
+├── css/              # スタイルシート
+├── js/               # JavaScriptファイル
+│   ├── app.js       # メインアプリケーション
+│   └── theme.js     # テーママネージャー
+├── data/            # 生成されたJSONファイル（ビルド出力）
+│   ├── articles.json
+│   └── themes/
+├── config.js        # サイト設定（docusaurus.config.js相当）
+├── build-static.js  # 静的ファイル生成スクリプト
+├── 404.html         # SPAルーティング用404ページ
+├── .nojekyll        # GitHub Pages設定
+└── index.html       # エントリーポイント
 ```
 
-## API エンドポイント
+## Deployment
 
-### GET `/api/articles`
-記事の一覧を取得
+### GitHub Pages
 
-**レスポンス:**
-```json
-[
-  {
-    "filename": "example.md",
-    "title": "記事タイトル",
-    "modifiedDate": "2025-11-15T12:00:00.000Z"
-  }
-]
+GitHub Actionsで自動デプロイされます:
+
+1. `main` ブランチにプッシュ
+2. GitHub Actionsが `build-static.js` を実行
+3. GitHub Pagesにデプロイ
+
+`.github/workflows/static-site.yml` で設定:
+
+```yaml
+env:
+  DEFAULT_THEME: ocean  # デフォルトテーマを設定
 ```
 
-### GET `/api/articles/:filename`
-特定の記事の内容を取得
-
-**レスポンス:**
-```json
-{
-  "filename": "example.md",
-  "title": "記事タイトル",
-  "content": "# マークダウン本文...",
-  "modifiedDate": "2025-11-15T12:00:00.000Z"
-}
-```
-
-## カスタマイズ
-
-### カラーテーマの変更
-`css/style.css` の `:root` セクションでカスタムプロパティを変更できます：
-
-```css
-:root {
-  --primary-color: #3ea8ff;
-  --bg-color: #f8f9fa;
-  --text-primary: #1a1a1a;
-  /* ... */
-}
-```
-
-### 環境変数の設定
-
-`.env.example` をコピーして `.env` ファイルを作成し、設定をカスタマイズできます：
+### 手動デプロイ
 
 ```bash
-cp .env.example .env
+# 静的ファイルをビルド
+npm run build
+
+# 全ディレクトリをホスティングプロバイダーにデプロイ
+# 必要なファイル: index.html, 404.html, css/, js/, articles/,
+#                 data/, themes/, config.js, .nojekyll
 ```
 
-`.env` ファイルの設定例：
+## テーマの作成
 
-```env
-# サーバーポート番号
-PORT=8080
+`themes/` に新しいYAMLファイルを作成:
 
-# 記事ディレクトリのパス（オプション）
-ARTICLES_DIR=/path/to/your/articles
+```yaml
+name: "My Theme"
+version: "1.0.0"
+description: "テーマ説明"
+
+fonts:
+  primary: "'Inter', sans-serif"
+  code: "'Fira Code', monospace"
+
+light:
+  colors:
+    primary: "#3b82f6"
+    background: "#ffffff"
+    text_primary: "#1e293b"
+    # ... その他の色
+
+dark:
+  colors:
+    primary: "#60a5fa"
+    background: "#0f172a"
+    text_primary: "#f1f5f9"
+    # ... その他の色
+
+styles:
+  border_radius: "8px"
+  card_shadow: "0 4px 6px rgba(0, 0, 0, 0.1)"
 ```
 
-または、コマンドラインで直接指定：
+## アーキテクチャ
 
-```bash
-PORT=8080 npm start
-```
+KumoCodeはDocusaurusのアーキテクチャ原則に従っています:
+
+- **静的サイト生成** - 最適なパフォーマンスのためJSONデータを事前ビルド
+- **クライアントサイドルーティング** - URLベースナビゲーションのSPA
+- **テーマシステム** - プラガブルなYAMLベーステーマ
+- **ビルドプロセス** - 自動化された静的ファイル生成
+- **GitHub Pages最適化** - ベースURL処理、404リダイレクト、.nojekyll
 
 ## トラブルシューティング
 
@@ -253,8 +299,10 @@ MIT License
 
 KumoCode Development Team
 
-## 謝辞
+## Credits
 
+- Inspired by [Docusaurus](https://docusaurus.io/) architecture
 - [Marked.js](https://marked.js.org/)
 - [Highlight.js](https://highlightjs.org/)
 - [KaTeX](https://katex.org/)
+- [Mermaid](https://mermaid.js.org/)

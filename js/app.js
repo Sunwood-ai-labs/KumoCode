@@ -87,7 +87,8 @@ marked.setOptions({ renderer: renderer });
  */
 async function fetchArticles() {
     try {
-        const response = await fetch('/data/articles.json');
+        const url = window.kumoConfig.resolveUrl('data/articles.json');
+        const response = await fetch(url);
         if (!response.ok) {
             throw new Error('Failed to fetch articles');
         }
@@ -106,7 +107,8 @@ async function fetchArticles() {
 async function fetchArticleContent(filename) {
     try {
         // Fetch markdown file directly
-        const response = await fetch(`/articles/${encodeURIComponent(filename)}`);
+        const url = window.kumoConfig.resolveUrl(`articles/${encodeURIComponent(filename)}`);
+        const response = await fetch(url);
         if (!response.ok) {
             throw new Error('Failed to fetch article content');
         }
