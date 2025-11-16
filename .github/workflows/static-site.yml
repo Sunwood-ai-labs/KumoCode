@@ -31,9 +31,9 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: npm install js-yaml
+        run: npm install
 
-      - name: Build static JSON files
+      - name: Build static files (Docusaurus-style)
         env:
           DEFAULT_THEME: ocean
         run: node build-static.js
