@@ -31,4 +31,4 @@ Thumbs.db
 # Build outputs
 dist/
 build/
-data/
+# data/  ← コメントアウトしてコミット可能にする
