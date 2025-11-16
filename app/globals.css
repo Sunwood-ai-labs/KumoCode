@@ -107,11 +107,14 @@ body {
    Header
    ========================================== */
 .header {
-    background: linear-gradient(135deg, var(--header-gradient-start) 0%, var(--header-gradient-end) 100%);
-    color: var(--header-text-color, white);
+    background: var(--gradient-header), var(--bg-header-image);
+    background-blend-mode: overlay;
+    background-size: cover;
+    background-position: center;
+    color: var(--header-text, white);
     padding: 24px 32px;
-    box-shadow: var(--shadow-lg);
-    backdrop-filter: var(--blur-md);
+    box-shadow: var(--card-shadow, var(--shadow-lg));
+    backdrop-filter: var(--backdrop-blur, var(--blur-md));
     position: relative;
     overflow: visible;
     z-index: 5;
@@ -258,7 +261,7 @@ body.dark-mode .theme-toggle .moon-icon {
     box-shadow: 0 12px 30px rgba(15, 23, 42, 0.18);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    color: var(--header-text-color, var(--text-primary, #1e293b));
+    color: var(--header-text, var(--text-primary, #1e293b));
     transition: var(--transition-base);
     z-index: 20;
 }
@@ -429,7 +432,7 @@ body:not(.theme-enhanced) .theme-selector-native {
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.25);
     background: rgba(255, 255, 255, 0.2);
-    color: var(--header-text-color, #1e293b);
+    color: var(--header-text, #1e293b);
 }
 
 body.theme-enhanced .theme-selector-native {
