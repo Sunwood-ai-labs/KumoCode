@@ -1,16 +1,32 @@
-# KumoCode
+<h1 align="center">KumoCode</h1>
 
-![](images/kumocode.jpeg)
+<p align="center">
+  <img src="images/kumocode.jpeg" alt="KumoCode" width="600"/>
+</p>
 
-Modern Markdown Documentation Platform inspired by Docusaurus architecture.
+<p align="center">
+  Modern Markdown Documentation Platform inspired by Docusaurus architecture
+</p>
 
-![KumoCode](https://img.shields.io/badge/version-1.0.0-blue.svg)
-![License](https://img.shields.io/badge/license-MIT-green.svg)
-![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Ready-success.svg)
+<p align="center">
+  <img src="https://img.shields.io/badge/version-2.0.0-blue.svg" alt="Version" />
+  <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License" />
+  <img src="https://img.shields.io/badge/Next.js-14.2.0-black.svg" alt="Next.js" />
+  <img src="https://img.shields.io/badge/React-18.3.0-61dafb.svg" alt="React" />
+</p>
 
 ## 概要
 
 KumoCodeは、Docusaurusのアーキテクチャを参考にした、マークダウンベースのドキュメントプラットフォームです。GitHub Pagesでの静的ホスティングに最適化されており、美しいJSONテーマシステムを搭載しています。
+
+## 🔄 アーキテクチャの変遷
+
+KumoCodeは当初、Express.jsベースのサーバーサイドアプリケーションとして開発されましたが、バージョン2.0.0でNext.js 14に完全移行しました。
+
+- **v1.x**: Express.js + 静的HTML（`legacy/`フォルダに保存）
+- **v2.x以降**: Next.js 14 + React（現在のアーキテクチャ）
+
+レガシーコードは参考のため`legacy/`フォルダに保存されていますが、本番環境では使用されていません。
 
 ## 特徴
 
@@ -65,10 +81,20 @@ KumoCodeは、Docusaurusのアーキテクチャを参考にした、マーク�
 - CORS
 - dotenv - 環境変数管理
 
+## 📖 ドキュメント
+
+詳細なドキュメントは以下をご覧ください：
+
+- **[インストールガイド](docs/INSTALLATION.md)** - セットアップ手順と環境構築
+- **[使用方法](docs/USAGE.md)** - 記事作成とカスタマイズ方法
+- **[テーマガイド](docs/THEMES.md)** - カスタムテーマの作成方法
+- **[アーキテクチャ](docs/ARCHITECTURE.md)** - システム設計の詳細
+- **[サンプル記事](examples/README.md)** - 実例とチュートリアル
+
 ## Quick Start
 
 ### 前提条件
-- Node.js 16.0.0 以上
+- Node.js 18.0.0 以上
 
 ### ローカル開発
 
