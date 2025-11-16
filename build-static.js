@@ -38,16 +38,21 @@ function slugifyHeading(text) {
 }
 
 // Configure marked with custom renderer for heading IDs
-const renderer = new marked.Renderer();
-renderer.heading = function(text, level) {
-  const headingId = slugifyHeading(text);
-  return `<h${level} id="${headingId}">${text}</h${level}>`;
+// marked v4+ uses token objects instead of simple text
+const renderer = {
+  heading({ tokens, depth }) {
+    // Extract text from tokens
+    const headingText = tokens.map(token => token.raw || token.text || '').join('');
+    const headingId = slugifyHeading(headingText);
+    return `<h${depth} id="${headingId}">${this.parser.parseInline(tokens)}</h${depth}>`;
+  }
 };
+
+marked.use({ renderer });
 
 marked.setOptions({
   breaks: true,
   gfm: true,
-  renderer: renderer,
 });
 
 /**
