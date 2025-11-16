@@ -1,0 +1,69 @@
+# KumoCode サンセットテーマ
+name: "Sunset Theme"
+version: "1.0.0"
+description: "宇宙と夕焼けが融合した幻想的なテーマ - 星空と渦巻く雲、遠くの山々が織りなす美しいグラデーション"
+
+fonts:
+  primary: "'Noto Sans JP', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"
+  code: "'Fira Code', 'Courier New', monospace"
+
+# シンタックスハイライトテーマ
+highlight_themes:
+  light: "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/stackoverflow-light.min.css"
+  dark: "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/monokai.min.css"
+
+light:
+  colors:
+    primary: "#f59e0b"
+    accent: "#ef4444"
+    background: "#fff7ed"
+    surface: "#ffffff"
+    text_primary: "#78350f"
+    text_secondary: "#92400e"
+    text_muted: "#d97706"
+    border: "#fed7aa"
+    code_bg: "#fff7ed"
+    link: "#f59e0b"
+    link_hover: "#d97706"
+    header_text: "#ffffff"
+
+  gradients:
+    # 夕焼けのグラデーション（オレンジ→ピンク→紫）
+    header: "linear-gradient(135deg, #f59e0b 0%, #ef4444 50%, #ec4899 100%)"
+    card_hover: "linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(239, 68, 68, 0.1) 100%)"
+
+  backgrounds:
+    # 夕焼けの空の画像
+    header_image: "/images/sunset-header.png"
+    body_image: ""
+    card_image: ""
+
+dark:
+  colors:
+    primary: "#fbbf24"
+    accent: "#f87171"
+    background: "#451a03"
+    surface: "#78350f"
+    text_primary: "#fff7ed"
+    text_secondary: "#fed7aa"
+    text_muted: "#fdba74"
+    border: "#92400e"
+    code_bg: "#78350f"
+    link: "#fbbf24"
+    link_hover: "#fcd34d"
+    header_text: "#fed7aa"
+
+  gradients:
+    header: "linear-gradient(135deg, #92400e 0%, #7c2d12 50%, #991b1b 100%)"
+    card_hover: "linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(248, 113, 113, 0.1) 100%)"
+
+  backgrounds:
+    header_image: "/images/sunset-header.png"
+    body_image: ""
+    card_image: ""
+
+styles:
+  border_radius: "14px"
+  card_shadow: "0 6px 12px rgba(245, 158, 11, 0.15)"
+  header_height: "80px"
+  backdrop_blur: "10px"

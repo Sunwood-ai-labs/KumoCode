@@ -1,0 +1,69 @@
+# KumoCode オーシャンテーマ
+name: "Ocean Theme"
+version: "1.0.0"
+description: "海をイメージしたグラデーションテーマ"
+
+fonts:
+  primary: "'Noto Sans JP', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"
+  code: "'Fira Code', 'Courier New', monospace"
+
+# シンタックスハイライトテーマ
+highlight_themes:
+  light: "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+  dark: "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/nord.min.css"
+
+light:
+  colors:
+    primary: "#0ea5e9"
+    accent: "#06b6d4"
+    background: "#f0f9ff"
+    surface: "#ffffff"
+    text_primary: "#0c4a6e"
+    text_secondary: "#0369a1"
+    text_muted: "#64748b"
+    border: "#bae6fd"
+    code_bg: "#f0f9ff"
+    link: "#0ea5e9"
+    link_hover: "#0284c7"
+    header_text: "#0c4a6e"
+
+  gradients:
+    # ヘッダーに海のグラデーション
+    header: "linear-gradient(135deg, #0ea5e9 0%, #06b6d4 50%, #3b82f6 100%)"
+    card_hover: "linear-gradient(135deg, rgba(14, 165, 233, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%)"
+
+  backgrounds:
+    # グラデーションの背景に波の画像（オプション）
+    header_image: "https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=1920&h=400&fit=crop"
+    body_image: ""
+    card_image: ""
+
+dark:
+  colors:
+    primary: "#38bdf8"
+    accent: "#22d3ee"
+    background: "#082f49"
+    surface: "#0c4a6e"
+    text_primary: "#f0f9ff"
+    text_secondary: "#bae6fd"
+    text_muted: "#94a3b8"
+    border: "#075985"
+    code_bg: "#0c4a6e"
+    link: "#38bdf8"
+    link_hover: "#7dd3fc"
+    header_text: "#bae6fd"
+
+  gradients:
+    header: "linear-gradient(135deg, #0c4a6e 0%, #075985 50%, #0e7490 100%)"
+    card_hover: "linear-gradient(135deg, rgba(56, 189, 248, 0.1) 0%, rgba(34, 211, 238, 0.1) 100%)"
+
+  backgrounds:
+    header_image: "https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=1920&h=400&fit=crop"
+    body_image: ""
+    card_image: ""
+
+styles:
+  border_radius: "16px"
+  card_shadow: "0 8px 16px rgba(14, 165, 233, 0.2)"
+  header_height: "80px"
+  backdrop_blur: "12px"
