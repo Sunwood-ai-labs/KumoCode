@@ -6,6 +6,7 @@ import rehypeKatex from 'rehype-katex'
 import rehypeHighlight from 'rehype-highlight'
 import { getAllArticleSlugs, getArticleBySlug } from '@/lib/markdown'
 import Header from '@/components/Header'
+import TableOfContents from '@/components/TableOfContents'
 import Link from 'next/link'
 
 // KaTeX CSS
@@ -55,13 +56,21 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
               </div>
             </header>
 
-            <div className="article-content">
-              <ReactMarkdown
-                remarkPlugins={[remarkGfm, remarkMath]}
-                rehypePlugins={[rehypeHighlight, rehypeKatex]}
-              >
-                {article.content}
-              </ReactMarkdown>
+            {/* Article with TOC Sidebar */}
+            <div className="article-with-toc">
+              {/* Table of Contents Sidebar (Left) */}
+              <TableOfContents content={article.content} />
+
+              <div className="article-content-wrapper">
+                <div className="article-content">
+                  <ReactMarkdown
+                    remarkPlugins={[remarkGfm, remarkMath]}
+                    rehypePlugins={[rehypeHighlight, rehypeKatex]}
+                  >
+                    {article.content}
+                  </ReactMarkdown>
+                </div>
+              </div>
             </div>
           </article>
         </div>
