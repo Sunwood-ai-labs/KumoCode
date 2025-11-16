@@ -97,7 +97,7 @@ async function buildArticlesIndex() {
  */
 
 /**
- * Build themes.json
+ * Build themes.json (metadata only - actual themes loaded from YAML)
  */
 async function buildThemesIndex() {
   console.log('🎨 Building themes index...');
@@ -141,6 +141,7 @@ async function buildThemesIndex() {
     );
 
     console.log(`✅ Generated themes.json with ${validThemes.length} themes (default: ${DEFAULT_THEME})`);
+    console.log(`   Note: Theme metadata only - YAML files loaded directly in browser`);
   } catch (error) {
     console.error('❌ Error building themes index:', error);
     throw error;
@@ -148,46 +149,10 @@ async function buildThemesIndex() {
 }
 
 /**
- * Build individual theme JSON files
+ * Note: Individual theme files are NOT generated.
+ * Themes are loaded directly as YAML files from the themes/ directory.
+ * This keeps the source of truth in YAML and allows for easier editing.
  */
-async function buildThemeFiles() {
-  console.log('🎨 Building individual theme files...');
-
-  try {
-    const files = await fs.readdir(THEMES_DIR);
-    const yamlFiles = files.filter(file => file.endsWith('.yaml') || file.endsWith('.yml'));
-
-    const themesDataDir = path.join(DATA_DIR, 'themes');
-    await fs.mkdir(themesDataDir, { recursive: true });
-
-    for (const filename of yamlFiles) {
-      const filePath = path.join(THEMES_DIR, filename);
-      const content = await fs.readFile(filePath, 'utf-8');
-
-      try {
-        const themeData = yaml.load(content);
-        const themeName = filename.replace(/\.(yaml|yml)$/, '');
-
-        const themeJson = {
-          id: themeName,
-          ...themeData,
-        };
-
-        await fs.writeFile(
-          path.join(themesDataDir, `${themeName}.json`),
-          JSON.stringify(themeJson, null, 2)
-        );
-      } catch (parseError) {
-        console.error(`⚠️  Error parsing theme ${filename}:`, parseError);
-      }
-    }
-
-    console.log(`✅ Generated ${yamlFiles.length} theme JSON files`);
-  } catch (error) {
-    console.error('❌ Error building theme files:', error);
-    throw error;
-  }
-}
 
 /**
  * Main build function
@@ -197,13 +162,16 @@ async function build() {
 
   try {
     await buildArticlesIndex();
-    // Note: Article JSON files are not generated - Markdown files are served directly
     await buildThemesIndex();
-    await buildThemeFiles();
+
+    // Note: Individual files are NOT converted to JSON
+    // - Articles: Served as Markdown from articles/
+    // - Themes: Served as YAML from themes/
 
     console.log('\n✨ Static build completed successfully!');
-    console.log(`📂 Theme JSON files are in the data/themes/ directory`);
-    console.log(`📝 Articles are served directly from the articles/ directory`);
+    console.log(`📂 Generated metadata in data/ directory`);
+    console.log(`📝 Articles served directly from articles/ (Markdown)`);
+    console.log(`🎨 Themes served directly from themes/ (YAML)`);
   } catch (error) {
     console.error('\n❌ Build failed:', error);
     process.exit(1);

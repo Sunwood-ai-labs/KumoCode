@@ -1,7 +1,7 @@
 {
   "name": "kumocode",
   "version": "1.0.0",
-  "description": "Markdown Article Preview - technical article viewer",
+  "description": "Modern Markdown Documentation Platform inspired by Docusaurus - GitHub Pages ready with YAML theme system",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

@@ -53,13 +53,19 @@ class ThemeManager {
    */
   async applyTheme(themeName) {
     try {
-      const url = window.kumoConfig.resolveUrl(`data/themes/${themeName}.json`);
+      // Load YAML file directly
+      const url = window.kumoConfig.resolveUrl(`themes/${themeName}.yaml`);
       const response = await fetch(url);
       if (!response.ok) {
         throw new Error(`Failed to load theme: ${themeName}`);
       }
 
-      const themeData = await response.json();
+      // Parse YAML to JavaScript object
+      const yamlText = await response.text();
+      const themeData = jsyaml.load(yamlText);
+
+      // Add theme ID
+      themeData.id = themeName;
       this.currentTheme = themeData;
 
       // Apply theme to DOM
