@@ -28,7 +28,12 @@ Thumbs.db
 *.swo
 *~
 
-# Build outputs
+# Build outputs (Legacy)
 dist/
 build/
 data/
+
+# Next.js
+.next/
+out/
+next-env.d.ts
