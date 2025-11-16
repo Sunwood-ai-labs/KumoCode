@@ -2,13 +2,13 @@
 
 /**
  * Build script for generating static files for GitHub Pages
- * Converts Markdown and YAML to JSON for optimal performance
+ * Converts Markdown to HTML for optimal performance
  * Following Docusaurus architecture: build-time rendering
+ * Note: Themes are now JSON source files (no YAML conversion needed)
  */
 
 const fs = require('fs').promises;
 const path = require('path');
-const yaml = require('js-yaml');
 const marked = require('marked');
 
 const ARTICLES_DIR = path.join(__dirname, 'articles');
@@ -146,23 +146,24 @@ async function buildArticleFiles() {
 }
 
 /**
- * Build themes index (metadata only)
+ * Build themes index from JSON source files
+ * Themes are now stored as JSON (no YAML conversion needed)
  */
 async function buildThemesIndex() {
-  console.log('🎨 Building themes index...');
+  console.log('🎨 Building themes index from JSON sources...');
 
   try {
     const files = await fs.readdir(THEMES_DIR);
-    const yamlFiles = files.filter(file => file.endsWith('.yaml') || file.endsWith('.yml'));
+    const jsonFiles = files.filter(file => file.endsWith('.json'));
 
     const themes = await Promise.all(
-      yamlFiles.map(async (filename) => {
+      jsonFiles.map(async (filename) => {
         const filePath = path.join(THEMES_DIR, filename);
         const content = await fs.readFile(filePath, 'utf-8');
 
         try {
-          const themeData = yaml.load(content);
-          const themeName = filename.replace(/\.(yaml|yml)$/, '');
+          const themeData = JSON.parse(content);
+          const themeName = filename.replace('.json', '');
 
           return {
             id: themeName,
@@ -190,52 +191,9 @@ async function buildThemesIndex() {
     );
 
     console.log(`✅ Generated themes.json with ${validThemes.length} themes (default: ${DEFAULT_THEME})`);
+    console.log(`   Note: Themes are JSON source files (no conversion needed)`);
   } catch (error) {
     console.error('❌ Error building themes index:', error);
-    throw error;
-  }
-}
-
-/**
- * Build individual theme JSON files from YAML
- * Following Docusaurus: YAML → JSON at build time
- */
-async function buildThemeFiles() {
-  console.log('🎨 Building theme JSON files...');
-
-  try {
-    const files = await fs.readdir(THEMES_DIR);
-    const yamlFiles = files.filter(file => file.endsWith('.yaml') || file.endsWith('.yml'));
-
-    const themesDataDir = path.join(DATA_DIR, 'themes');
-    await fs.mkdir(themesDataDir, { recursive: true });
-
-    for (const filename of yamlFiles) {
-      const filePath = path.join(THEMES_DIR, filename);
-      const content = await fs.readFile(filePath, 'utf-8');
-
-      try {
-        const themeData = yaml.load(content);
-        const themeName = filename.replace(/\.(yaml|yml)$/, '');
-
-        const themeJson = {
-          id: themeName,
-          ...themeData,
-        };
-
-        await fs.writeFile(
-          path.join(themesDataDir, `${themeName}.json`),
-          JSON.stringify(themeJson, null, 2)
-        );
-      } catch (parseError) {
-        console.error(`⚠️  Error parsing theme ${filename}:`, parseError);
-      }
-    }
-
-    console.log(`✅ Generated ${yamlFiles.length} theme JSON files`);
-    console.log(`   Note: YAML → JSON conversion done at build time`);
-  } catch (error) {
-    console.error('❌ Error building theme files:', error);
     throw error;
   }
 }
@@ -251,17 +209,17 @@ async function build() {
     await buildArticlesIndex();
     await buildThemesIndex();
 
-    // Build full content files (Docusaurus approach)
+    // Build article content files (MD → HTML at build time)
     await buildArticleFiles();
-    await buildThemeFiles();
 
     console.log('\n✨ Static build completed successfully!');
     console.log(`📦 Build output:`);
     console.log(`   - data/articles.json (article list)`);
     console.log(`   - data/articles/*.json (pre-rendered HTML)`);
-    console.log(`   - data/themes.json (theme list)`);
-    console.log(`   - data/themes/*.json (theme data)`);
-    console.log(`\n⚡ Performance: No runtime Markdown/YAML parsing needed!`);
+    console.log(`   - data/themes.json (theme list metadata)`);
+    console.log(`\n📁 Source files:`);
+    console.log(`   - themes/*.json (theme source files, no conversion)`);
+    console.log(`\n⚡ Performance: No runtime Markdown parsing needed!`);
   } catch (error) {
     console.error('\n❌ Build failed:', error);
     process.exit(1);

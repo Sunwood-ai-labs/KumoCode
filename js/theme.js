@@ -50,12 +50,12 @@ class ThemeManager {
 
   /**
    * Apply a theme by name
-   * Following Docusaurus: Load pre-built JSON from build time
+   * Loads JSON theme files directly from themes/ directory
    */
   async applyTheme(themeName) {
     try {
-      // Load pre-built JSON (YAML → JSON done at build time)
-      const url = window.kumoConfig.resolveUrl(`data/themes/${themeName}.json`);
+      // Load JSON theme file directly (no conversion needed)
+      const url = window.kumoConfig.resolveUrl(`themes/${themeName}.json`);
       const response = await fetch(url);
       if (!response.ok) {
         throw new Error(`Failed to load theme: ${themeName}`);
