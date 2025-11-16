@@ -51,6 +51,14 @@ marked.setOptions({
 });
 
 /**
+ * Remove frontmatter from markdown content
+ */
+function removeFrontmatter(content) {
+  const frontmatterRegex = /^---\s*\n[\s\S]*?\n---\s*\n/;
+  return content.replace(frontmatterRegex, '');
+}
+
+/**
  * Extract title from frontmatter
  */
 function extractTitle(content) {
@@ -150,8 +158,11 @@ async function buildArticleFiles() {
       // Reset heading slug counts for each article
       headingSlugCounts.clear();
 
+      // Remove frontmatter before converting to HTML
+      const contentWithoutFrontmatter = removeFrontmatter(content);
+
       // Parse Markdown to HTML at build time (Docusaurus approach)
-      const htmlContent = marked.parse(content);
+      const htmlContent = marked.parse(contentWithoutFrontmatter);
 
       const articleData = {
         filename,
