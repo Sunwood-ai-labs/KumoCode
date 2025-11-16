@@ -159,6 +159,12 @@ body {
     cursor: pointer;
     transition: var(--transition-base);
     text-shadow: var(--header-text-shadow, none);
+    text-decoration: none;
+    color: inherit;
+}
+
+.logo::after {
+    display: none !important;
 }
 
 .logo:hover {
@@ -537,6 +543,8 @@ body.dark-mode .theme-option-desc {
     box-shadow: var(--shadow-sm);
     position: relative;
     overflow: hidden;
+    text-decoration: none;
+    display: block;
 }
 
 .article-card::before {
@@ -550,6 +558,10 @@ body.dark-mode .theme-option-desc {
     transform: scaleX(0);
     transform-origin: left;
     transition: var(--transition-base);
+}
+
+.article-card::after {
+    display: none !important;
 }
 
 .article-card:hover::before {
@@ -604,6 +616,11 @@ body.dark-mode .theme-option-desc {
     font-weight: 500;
     font-size: 14px;
     margin-bottom: 32px;
+    text-decoration: none;
+}
+
+.back-btn::after {
+    display: none !important;
 }
 
 .back-btn svg {
