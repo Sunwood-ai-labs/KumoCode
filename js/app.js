@@ -17,33 +17,8 @@ const themeDropdownElements = {
     nativeSelect: null,
 };
 
-// Track generated heading IDs so the TOC can link to unique anchors even for non-Latin titles
-const headingSlugCounts = new Map();
-const PUNCTUATION_REGEX = /[\u2000-\u206F\u2E00-\u2E7F\u3000-\u303F'!"#$%&()*+,./:;<=>?@[\\\]^`{|}~]/g;
-
-function resetHeadingSlugs() {
-    headingSlugCounts.clear();
-}
-
-function slugifyHeading(text) {
-    const normalized = (text || '')
-        .toString()
-        .normalize('NFKC')
-        .trim()
-        .toLowerCase()
-        .replace(PUNCTUATION_REGEX, '')
-        .replace(/\s+/g, '-')
-        .replace(/-+/g, '-')
-        .replace(/^-|-$/g, '');
-
-    const baseSlug = normalized || 'section';
-    const count = headingSlugCounts.get(baseSlug) || 0;
-    headingSlugCounts.set(baseSlug, count + 1);
-    return count ? `${baseSlug}-${count}` : baseSlug;
-}
-
 // ==========================================
-// Marked.js Configuration
+// Mermaid Configuration
 // ==========================================
 
 // Initialize Mermaid with dark mode support
@@ -55,29 +30,6 @@ if (window.mermaid) {
     });
 }
 
-marked.setOptions({
-    highlight: function(code, lang) {
-        if (lang && hljs.getLanguage(lang)) {
-            try {
-                return hljs.highlight(code, { language: lang }).value;
-            } catch (err) {
-                console.error('Highlight error:', err);
-            }
-        }
-        return hljs.highlightAuto(code).value;
-    },
-    breaks: true,
-    gfm: true,
-});
-
-// Custom renderer for headings with IDs
-const renderer = new marked.Renderer();
-renderer.heading = function(text, level) {
-    const headingId = slugifyHeading(text);
-    return `<h${level} id="${headingId}">${text}</h${level}>`;
-};
-marked.setOptions({ renderer: renderer });
-
 // ==========================================
 // API Functions
 // ==========================================
@@ -87,7 +39,8 @@ marked.setOptions({ renderer: renderer });
  */
 async function fetchArticles() {
     try {
-        const response = await fetch('/api/articles');
+        const url = window.kumoConfig.resolveUrl('data/articles.json');
+        const response = await fetch(url);
         if (!response.ok) {
             throw new Error('Failed to fetch articles');
         }
@@ -101,20 +54,60 @@ async function fetchArticles() {
 }
 
 /**
- * Fetch article content from the server
+ * Fetch article content from pre-built JSON
+ * Following Docusaurus: HTML is pre-rendered at build time
  */
 async function fetchArticleContent(filename) {
     try {
-        const response = await fetch(`/api/articles/${encodeURIComponent(filename)}`);
+        // Convert .md filename to .json
+        const jsonFilename = filename.replace('.md', '.json');
+        const url = window.kumoConfig.resolveUrl(`data/articles/${encodeURIComponent(jsonFilename)}`);
+        const response = await fetch(url);
         if (!response.ok) {
             throw new Error('Failed to fetch article content');
         }
         const data = await response.json();
+
+        // Data includes pre-rendered HTML from build time
         return data;
     } catch (error) {
         console.error('Error fetching article content:', error);
         return null;
     }
+}
+
+/**
+ * Extract title from frontmatter (helper function)
+ */
+function extractTitle(content) {
+    const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---/;
+    const match = content.match(frontmatterRegex);
+
+    if (!match) return null;
+
+    const frontmatter = match[1];
+    const titleMatch = frontmatter.match(/^title:\s*(.+)$/m);
+
+    if (!titleMatch) return null;
+
+    let title = titleMatch[1].trim();
+    // Remove quotes if present
+    if ((title.startsWith('"') && title.endsWith('"')) ||
+        (title.startsWith("'") && title.endsWith("'"))) {
+        title = title.slice(1, -1);
+    }
+
+    return title;
+}
+
+/**
+ * Format filename to readable title (helper function)
+ */
+function formatFilename(filename) {
+    return filename
+        .replace('.md', '')
+        .replace(/-/g, ' ')
+        .replace(/\b\w/g, c => c.toUpperCase());
 }
 
 // ==========================================
@@ -229,10 +222,9 @@ function renderArticle(articleData) {
         articleMeta.innerHTML = '';
     }
 
-    // Parse and render markdown
-    resetHeadingSlugs();
-    const htmlContent = marked.parse(content);
-    articleContent.innerHTML = htmlContent;
+    // Use pre-rendered HTML from build time (Docusaurus approach)
+    // HTML includes heading IDs generated at build time for TOC support
+    articleContent.innerHTML = articleData.html;
 
     // Apply syntax highlighting
     articleContent.querySelectorAll('pre code').forEach((block) => {

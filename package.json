@@ -1,11 +1,13 @@
 {
   "name": "kumocode",
   "version": "1.0.0",
-  "description": "Markdown Article Preview - technical article viewer",
+  "description": "Modern Markdown Documentation Platform inspired by Docusaurus - GitHub Pages ready with YAML theme system",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "build": "node build-static.js",
+    "serve": "node server.js"
   },
   "keywords": [
     "markdown",
@@ -18,7 +20,7 @@
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^4.18.2",
-    "js-yaml": "^4.1.1"
+    "marked": "^17.0.0"
   },
   "engines": {
     "node": ">=16.0.0"

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting... - KumoCode</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .container {
+            text-align: center;
+            padding: 2rem;
+        }
+        h1 {
+            font-size: 3rem;
+            margin: 0 0 1rem 0;
+        }
+        p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        .spinner {
+            margin: 2rem auto;
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+    <script>
+        /**
+         * 404.html - SPA Redirect Handler for GitHub Pages
+         *
+         * This file handles 404 errors on GitHub Pages by redirecting to index.html
+         * while preserving the original path as a query parameter.
+         *
+         * This is similar to how Docusaurus handles client-side routing on GitHub Pages.
+         */
+        (function() {
+            var pathSegmentsToKeep = 1; // For repo-based GitHub Pages (e.g., username.github.io/repo-name/)
+
+            var path = window.location.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/';
+            var query = window.location.search.slice(1);
+
+            // Preserve the current path by encoding it in the redirect
+            var redirect = path + '?' +
+                (query ? query + '&' : '') +
+                'redirect=' + encodeURIComponent(window.location.pathname + window.location.search + window.location.hash);
+
+            // Redirect to index.html with the preserved path
+            window.location.replace(redirect);
+        })();
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>🔄</h1>
+        <div class="spinner"></div>
+        <p>Redirecting to KumoCode...</p>
+        <p style="font-size: 0.9rem; opacity: 0.7;">If you are not redirected automatically, <a href="/" style="color: white; text-decoration: underline;">click here</a>.</p>
+    </div>
+</body>
+</html>

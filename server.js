@@ -5,7 +5,6 @@ const express = require('express');
 const cors = require('cors');
 const fs = require('fs').promises;
 const path = require('path');
-const yaml = require('js-yaml');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -96,20 +95,21 @@ app.get('/api/articles/:filename', async (req, res) => {
 
 /**
  * Get list of available themes
+ * Updated for JSON-based theme system
  */
 app.get('/api/themes', async (req, res) => {
   try {
     const files = await fs.readdir(THEMES_DIR);
-    const yamlFiles = files.filter(file => file.endsWith('.yaml') || file.endsWith('.yml'));
+    const jsonFiles = files.filter(file => file.endsWith('.json'));
 
     const themes = await Promise.all(
-      yamlFiles.map(async (filename) => {
+      jsonFiles.map(async (filename) => {
         const filePath = path.join(THEMES_DIR, filename);
         const content = await fs.readFile(filePath, 'utf-8');
 
         try {
-          const themeData = yaml.load(content);
-          const themeName = filename.replace(/\.(yaml|yml)$/, '');
+          const themeData = JSON.parse(content);
+          const themeName = filename.replace('.json', '');
 
           return {
             id: themeName,
@@ -139,33 +139,27 @@ app.get('/api/themes', async (req, res) => {
 
 /**
  * Get specific theme data
+ * Updated for JSON-based theme system
  */
 app.get('/api/themes/:name', async (req, res) => {
   try {
     const themeName = req.params.name;
 
-    // Security: Prevent directory traversal
     // Security: Prevent directory traversal by validating theme name format.
     if (!/^[a-zA-Z0-9_-]+$/.test(themeName)) {
       return res.status(400).json({ error: 'Invalid theme name' });
     }
 
-    // Try .yaml first, then .yml
-    let filePath = path.join(THEMES_DIR, `${themeName}.yaml`);
+    const filePath = path.join(THEMES_DIR, `${themeName}.json`);
 
     try {
       await fs.access(filePath);
     } catch {
-      filePath = path.join(THEMES_DIR, `${themeName}.yml`);
-      try {
-        await fs.access(filePath);
-      } catch {
-        return res.status(404).json({ error: 'Theme not found' });
-      }
+      return res.status(404).json({ error: 'Theme not found' });
     }
 
     const content = await fs.readFile(filePath, 'utf-8');
-    const themeData = yaml.load(content);
+    const themeData = JSON.parse(content);
 
     res.json({
       id: themeName,

@@ -36,23 +36,27 @@ class ThemeManager {
    */
   async loadAvailableThemes() {
     try {
-      const response = await fetch('/api/themes');
+      const url = window.kumoConfig.resolveUrl('data/themes.json');
+      const response = await fetch(url);
       const data = await response.json();
       this.themes = data.themes || [];
       // Return full data object including default theme
       return data;
     } catch (error) {
       console.error('Failed to load themes:', error);
-      return { themes: [], default: 'default' };
+      return { themes: [], default: window.kumoConfig.defaultTheme };
     }
   }
 
   /**
    * Apply a theme by name
+   * Loads JSON theme files directly from themes/ directory
    */
   async applyTheme(themeName) {
     try {
-      const response = await fetch(`/api/themes/${themeName}`);
+      // Load JSON theme file directly (no conversion needed)
+      const url = window.kumoConfig.resolveUrl(`themes/${themeName}.json`);
+      const response = await fetch(url);
       if (!response.ok) {
         throw new Error(`Failed to load theme: ${themeName}`);
       }
@@ -70,9 +74,10 @@ class ThemeManager {
     } catch (error) {
       console.error('Error applying theme:', error);
       // Fallback to default theme if loading fails
-      if (themeName !== 'default') {
-        console.log('Falling back to default theme');
-        return this.applyTheme('default');
+      const defaultTheme = window.kumoConfig.defaultTheme;
+      if (themeName !== defaultTheme) {
+        console.log(`Falling back to ${defaultTheme} theme`);
+        return this.applyTheme(defaultTheme);
       }
     }
   }
