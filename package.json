@@ -5,10 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "export": "next build && next export",
-    "legacy:dev": "node server.js",
-    "legacy:build": "node build-static.js"
+    "start": "next start"
   },
   "keywords": [
     "markdown",

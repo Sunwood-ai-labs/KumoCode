@@ -31,7 +31,7 @@ Thumbs.db
 # Build outputs (Legacy)
 dist/
 build/
-# data/  ← コメントアウトしてコミット可能にする（Legacy用）
+data/
 
 # Next.js
 .next/
