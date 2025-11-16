@@ -17,33 +17,8 @@ const themeDropdownElements = {
     nativeSelect: null,
 };
 
-// Track generated heading IDs so the TOC can link to unique anchors even for non-Latin titles
-const headingSlugCounts = new Map();
-const PUNCTUATION_REGEX = /[\u2000-\u206F\u2E00-\u2E7F\u3000-\u303F'!"#$%&()*+,./:;<=>?@[\\\]^`{|}~]/g;
-
-function resetHeadingSlugs() {
-    headingSlugCounts.clear();
-}
-
-function slugifyHeading(text) {
-    const normalized = (text || '')
-        .toString()
-        .normalize('NFKC')
-        .trim()
-        .toLowerCase()
-        .replace(PUNCTUATION_REGEX, '')
-        .replace(/\s+/g, '-')
-        .replace(/-+/g, '-')
-        .replace(/^-|-$/g, '');
-
-    const baseSlug = normalized || 'section';
-    const count = headingSlugCounts.get(baseSlug) || 0;
-    headingSlugCounts.set(baseSlug, count + 1);
-    return count ? `${baseSlug}-${count}` : baseSlug;
-}
-
 // ==========================================
-// Marked.js Configuration
+// Mermaid Configuration
 // ==========================================
 
 // Initialize Mermaid with dark mode support
@@ -54,29 +29,6 @@ if (window.mermaid) {
         securityLevel: 'loose',
     });
 }
-
-marked.setOptions({
-    highlight: function(code, lang) {
-        if (lang && hljs.getLanguage(lang)) {
-            try {
-                return hljs.highlight(code, { language: lang }).value;
-            } catch (err) {
-                console.error('Highlight error:', err);
-            }
-        }
-        return hljs.highlightAuto(code).value;
-    },
-    breaks: true,
-    gfm: true,
-});
-
-// Custom renderer for headings with IDs
-const renderer = new marked.Renderer();
-renderer.heading = function(text, level) {
-    const headingId = slugifyHeading(text);
-    return `<h${level} id="${headingId}">${text}</h${level}>`;
-};
-marked.setOptions({ renderer: renderer });
 
 // ==========================================
 // API Functions
@@ -271,7 +223,7 @@ function renderArticle(articleData) {
     }
 
     // Use pre-rendered HTML from build time (Docusaurus approach)
-    resetHeadingSlugs();
+    // HTML includes heading IDs generated at build time for TOC support
     articleContent.innerHTML = articleData.html;
 
     // Apply syntax highlighting

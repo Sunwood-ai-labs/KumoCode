@@ -16,10 +16,38 @@ const THEMES_DIR = path.join(__dirname, 'themes');
 const DATA_DIR = path.join(__dirname, 'data');
 const DEFAULT_THEME = process.env.DEFAULT_THEME || 'ocean';
 
-// Configure marked for optimal HTML output
+// Heading ID generation (for TOC support)
+const headingSlugCounts = new Map();
+const PUNCTUATION_REGEX = /[\u2000-\u206F\u2E00-\u2E7F\u3000-\u303F'!"#$%&()*+,./:;<=>?@[\\\]^`{|}~]/g;
+
+function slugifyHeading(text) {
+  const normalized = (text || '')
+    .toString()
+    .normalize('NFKC')
+    .trim()
+    .toLowerCase()
+    .replace(PUNCTUATION_REGEX, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+
+  const baseSlug = normalized || 'section';
+  const count = headingSlugCounts.get(baseSlug) || 0;
+  headingSlugCounts.set(baseSlug, count + 1);
+  return count ? `${baseSlug}-${count}` : baseSlug;
+}
+
+// Configure marked with custom renderer for heading IDs
+const renderer = new marked.Renderer();
+renderer.heading = function(text, level) {
+  const headingId = slugifyHeading(text);
+  return `<h${level} id="${headingId}">${text}</h${level}>`;
+};
+
 marked.setOptions({
   breaks: true,
   gfm: true,
+  renderer: renderer,
 });
 
 /**
@@ -118,6 +146,9 @@ async function buildArticleFiles() {
       const content = await fs.readFile(filePath, 'utf-8');
       const stats = await fs.stat(filePath);
       const title = extractTitle(content) || formatFilename(filename);
+
+      // Reset heading slug counts for each article
+      headingSlugCounts.clear();
 
       // Parse Markdown to HTML at build time (Docusaurus approach)
       const htmlContent = marked.parse(content);
