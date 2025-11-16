@@ -102,27 +102,22 @@ async function fetchArticles() {
 }
 
 /**
- * Fetch article content from the server
+ * Fetch article content from pre-built JSON
+ * Following Docusaurus: HTML is pre-rendered at build time
  */
 async function fetchArticleContent(filename) {
     try {
-        // Fetch markdown file directly
-        const url = window.kumoConfig.resolveUrl(`articles/${encodeURIComponent(filename)}`);
+        // Convert .md filename to .json
+        const jsonFilename = filename.replace('.md', '.json');
+        const url = window.kumoConfig.resolveUrl(`data/articles/${encodeURIComponent(jsonFilename)}`);
         const response = await fetch(url);
         if (!response.ok) {
             throw new Error('Failed to fetch article content');
         }
-        const content = await response.text();
+        const data = await response.json();
 
-        // Extract title from content
-        const title = extractTitle(content) || formatFilename(filename);
-
-        return {
-            filename,
-            title,
-            content,
-            modifiedDate: new Date().toISOString(), // Note: modification date not available from static file
-        };
+        // Data includes pre-rendered HTML from build time
+        return data;
     } catch (error) {
         console.error('Error fetching article content:', error);
         return null;
@@ -275,10 +270,9 @@ function renderArticle(articleData) {
         articleMeta.innerHTML = '';
     }
 
-    // Parse and render markdown
+    // Use pre-rendered HTML from build time (Docusaurus approach)
     resetHeadingSlugs();
-    const htmlContent = marked.parse(content);
-    articleContent.innerHTML = htmlContent;
+    articleContent.innerHTML = articleData.html;
 
     // Apply syntax highlighting
     articleContent.querySelectorAll('pre code').forEach((block) => {
