@@ -625,12 +625,24 @@ body.dark-mode .theme-option-desc {
 }
 
 .article-container {
-    max-width: 900px;
+    max-width: 1400px;
     margin: 0 auto;
 }
 
 .article-header {
     margin-bottom: 40px;
+}
+
+.article-with-toc {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    position: relative;
+}
+
+.article-content-wrapper {
+    flex: 1;
+    min-width: 0; /* Prevent flex item from overflowing */
 }
 
 .article-title {
@@ -658,10 +670,17 @@ body.dark-mode .theme-option-desc {
     border: 1px solid var(--border-color);
     border-radius: 16px;
     padding: 24px;
-    margin-bottom: 40px;
     box-shadow: var(--shadow-sm);
     transition: var(--transition-base);
     display: none;
+    /* Sticky sidebar styles */
+    position: sticky;
+    top: 24px;
+    max-height: calc(100vh - 48px);
+    overflow-y: auto;
+    flex-shrink: 0;
+    width: 280px;
+    align-self: flex-start;
 }
 
 .toc.visible {
@@ -670,6 +689,37 @@ body.dark-mode .theme-option-desc {
 
 .toc:hover {
     box-shadow: var(--shadow-md);
+}
+
+/* TOC scrollbar styling */
+.toc::-webkit-scrollbar {
+    width: 6px;
+}
+
+.toc::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 3px;
+}
+
+.toc::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+.toc::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .toc::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .toc::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+body.dark-mode .toc::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
 }
 
 .toc-header {
@@ -1235,8 +1285,21 @@ a:focus {
         right: 24px;
     }
 
+    .article-with-toc {
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .article-content-wrapper {
+        width: 100%;
+    }
+
     .toc {
         padding: 20px;
+        position: static;
+        width: 100%;
+        max-height: none;
+        order: -1; /* Place TOC before content on mobile */
     }
 }
 
