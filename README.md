@@ -1,5 +1,7 @@
 # KumoCode
 
+![](images/kumocode.jpeg)
+
 Modern Markdown Documentation Platform inspired by Docusaurus architecture.
 
 ![KumoCode](https://img.shields.io/badge/version-1.0.0-blue.svg)

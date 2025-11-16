@@ -31,6 +31,66 @@ if (window.mermaid) {
 }
 
 // ==========================================
+// Marked.js Configuration
+// ==========================================
+
+// Track generated heading IDs so the TOC can link to unique anchors even for non-Latin titles
+const headingSlugCounts = new Map();
+const PUNCTUATION_REGEX = /[\u2000-\u206F\u2E00-\u2E7F\u3000-\u303F'!"#$%&()*+,./:;<=>?@[\\\]^`{|}~]/g;
+
+function resetHeadingSlugs() {
+    headingSlugCounts.clear();
+}
+
+function slugifyHeading(text) {
+    const normalized = (text || '')
+        .toString()
+        .normalize('NFKC')
+        .trim()
+        .toLowerCase()
+        .replace(PUNCTUATION_REGEX, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-')
+        .replace(/^-|-$/g, '');
+
+    const baseSlug = normalized || 'section';
+    const count = headingSlugCounts.get(baseSlug) || 0;
+    headingSlugCounts.set(baseSlug, count + 1);
+    return count ? `${baseSlug}-${count}` : baseSlug;
+}
+
+// Initialize Marked.js after DOM is loaded
+function initializeMarked() {
+    if (typeof marked === 'undefined') {
+        console.error('Marked.js is not loaded');
+        return;
+    }
+
+    marked.setOptions({
+        highlight: function(code, lang) {
+            if (lang && hljs.getLanguage(lang)) {
+                try {
+                    return hljs.highlight(code, { language: lang }).value;
+                } catch (err) {
+                    console.error('Highlight error:', err);
+                }
+            }
+            return hljs.highlightAuto(code).value;
+        },
+        breaks: true,
+        gfm: true,
+    });
+
+    // Custom renderer for headings with IDs
+    const renderer = new marked.Renderer();
+    renderer.heading = function(text, level) {
+        const headingId = slugifyHeading(text);
+        return `<h${level} id="${headingId}">${text}</h${level}>`;
+    };
+    marked.setOptions({ renderer: renderer });
+}
+
+// ==========================================
 // API Functions
 // ==========================================
 
@@ -39,8 +99,7 @@ if (window.mermaid) {
  */
 async function fetchArticles() {
     try {
-        const url = window.kumoConfig.resolveUrl('data/articles.json');
-        const response = await fetch(url);
+        const response = await fetch('/api/articles');
         if (!response.ok) {
             throw new Error('Failed to fetch articles');
         }
@@ -54,21 +113,15 @@ async function fetchArticles() {
 }
 
 /**
- * Fetch article content from pre-built JSON
- * Following Docusaurus: HTML is pre-rendered at build time
+ * Fetch article content from the server
  */
 async function fetchArticleContent(filename) {
     try {
-        // Convert .md filename to .json
-        const jsonFilename = filename.replace('.md', '.json');
-        const url = window.kumoConfig.resolveUrl(`data/articles/${encodeURIComponent(jsonFilename)}`);
-        const response = await fetch(url);
+        const response = await fetch(`/api/articles/${encodeURIComponent(filename)}`);
         if (!response.ok) {
             throw new Error('Failed to fetch article content');
         }
         const data = await response.json();
-
-        // Data includes pre-rendered HTML from build time
         return data;
     } catch (error) {
         console.error('Error fetching article content:', error);
@@ -222,9 +275,10 @@ function renderArticle(articleData) {
         articleMeta.innerHTML = '';
     }
 
-    // Use pre-rendered HTML from build time (Docusaurus approach)
-    // HTML includes heading IDs generated at build time for TOC support
-    articleContent.innerHTML = articleData.html;
+    // Parse and render markdown
+    resetHeadingSlugs();
+    const htmlContent = marked.parse(content);
+    articleContent.innerHTML = htmlContent;
 
     // Apply syntax highlighting
     articleContent.querySelectorAll('pre code').forEach((block) => {
@@ -297,10 +351,15 @@ function generateTOC(contentElement) {
     const toc = document.getElementById('toc');
     const tocContent = document.getElementById('tocContent');
 
+    console.log('generateTOC called, found headings:', headings.length);
+
     if (headings.length === 0) {
+        console.log('No headings found, hiding TOC');
         toc.classList.remove('visible');
         return;
     }
+
+    console.log('Generating TOC with', headings.length, 'headings');
 
     const tocItems = Array.from(headings).map(heading => {
         const level = heading.tagName.toLowerCase();
@@ -1017,6 +1076,9 @@ async function refreshArticles() {
  */
 async function init() {
     console.log('Initializing KumoCode...');
+
+    // Initialize Marked.js
+    initializeMarked();
 
     // Initialize theme
     initTheme();
