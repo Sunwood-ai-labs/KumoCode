@@ -105,18 +105,60 @@ async function fetchArticles() {
  */
 async function fetchArticleContent(filename) {
     try {
-        // Convert .md filename to .json
-        const jsonFilename = filename.replace('.md', '.json');
-        const response = await fetch(`/data/articles/${encodeURIComponent(jsonFilename)}`);
+        // Fetch markdown file directly
+        const response = await fetch(`/articles/${encodeURIComponent(filename)}`);
         if (!response.ok) {
             throw new Error('Failed to fetch article content');
         }
-        const data = await response.json();
-        return data;
+        const content = await response.text();
+
+        // Extract title from content
+        const title = extractTitle(content) || formatFilename(filename);
+
+        return {
+            filename,
+            title,
+            content,
+            modifiedDate: new Date().toISOString(), // Note: modification date not available from static file
+        };
     } catch (error) {
         console.error('Error fetching article content:', error);
         return null;
     }
+}
+
+/**
+ * Extract title from frontmatter (helper function)
+ */
+function extractTitle(content) {
+    const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---/;
+    const match = content.match(frontmatterRegex);
+
+    if (!match) return null;
+
+    const frontmatter = match[1];
+    const titleMatch = frontmatter.match(/^title:\s*(.+)$/m);
+
+    if (!titleMatch) return null;
+
+    let title = titleMatch[1].trim();
+    // Remove quotes if present
+    if ((title.startsWith('"') && title.endsWith('"')) ||
+        (title.startsWith("'") && title.endsWith("'"))) {
+        title = title.slice(1, -1);
+    }
+
+    return title;
+}
+
+/**
+ * Format filename to readable title (helper function)
+ */
+function formatFilename(filename) {
+    return filename
+        .replace('.md', '')
+        .replace(/-/g, ' ')
+        .replace(/\b\w/g, c => c.toUpperCase());
 }
 
 // ==========================================

@@ -92,44 +92,9 @@ async function buildArticlesIndex() {
 }
 
 /**
- * Build individual article JSON files
+ * Note: Individual article JSON files are not generated.
+ * Articles are served directly as Markdown files from the articles/ directory.
  */
-async function buildArticleFiles() {
-  console.log('📄 Building individual article files...');
-
-  try {
-    const files = await fs.readdir(ARTICLES_DIR);
-    const markdownFiles = files.filter(file => file.endsWith('.md'));
-
-    const articlesDataDir = path.join(DATA_DIR, 'articles');
-    await fs.mkdir(articlesDataDir, { recursive: true });
-
-    for (const filename of markdownFiles) {
-      const filePath = path.join(ARTICLES_DIR, filename);
-      const content = await fs.readFile(filePath, 'utf-8');
-      const stats = await fs.stat(filePath);
-      const title = extractTitle(content) || formatFilename(filename);
-
-      const articleData = {
-        filename,
-        title,
-        content,
-        modifiedDate: stats.mtime.toISOString(),
-      };
-
-      const outputFilename = filename.replace('.md', '.json');
-      await fs.writeFile(
-        path.join(articlesDataDir, outputFilename),
-        JSON.stringify(articleData, null, 2)
-      );
-    }
-
-    console.log(`✅ Generated ${markdownFiles.length} article JSON files`);
-  } catch (error) {
-    console.error('❌ Error building article files:', error);
-    throw error;
-  }
-}
 
 /**
  * Build themes.json
@@ -232,12 +197,13 @@ async function build() {
 
   try {
     await buildArticlesIndex();
-    await buildArticleFiles();
+    // Note: Article JSON files are not generated - Markdown files are served directly
     await buildThemesIndex();
     await buildThemeFiles();
 
     console.log('\n✨ Static build completed successfully!');
-    console.log(`📂 All JSON files are in the data/ directory`);
+    console.log(`📂 Theme JSON files are in the data/themes/ directory`);
+    console.log(`📝 Articles are served directly from the articles/ directory`);
   } catch (error) {
     console.error('\n❌ Build failed:', error);
     process.exit(1);
