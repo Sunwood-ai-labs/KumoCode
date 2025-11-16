@@ -672,7 +672,6 @@ body.dark-mode .theme-option-desc {
     padding: 24px;
     box-shadow: var(--shadow-sm);
     transition: var(--transition-base);
-    display: none;
     /* Sticky sidebar styles */
     position: sticky;
     top: 24px;
@@ -681,6 +680,10 @@ body.dark-mode .theme-option-desc {
     flex-shrink: 0;
     width: 280px;
     align-self: flex-start;
+}
+
+.toc:not(.visible) {
+    display: none;
 }
 
 .toc.visible {
@@ -1299,7 +1302,7 @@ a:focus {
         position: static;
         width: 100%;
         max-height: none;
-        order: -1; /* Place TOC before content on mobile */
+        /* TOC is already first in HTML, so no need for order property */
     }
 }
 

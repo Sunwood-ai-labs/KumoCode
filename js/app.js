@@ -222,9 +222,10 @@ function renderArticle(articleData) {
         articleMeta.innerHTML = '';
     }
 
-    // Use pre-rendered HTML from build time (Docusaurus approach)
-    // HTML includes heading IDs generated at build time for TOC support
-    articleContent.innerHTML = articleData.html;
+    // Parse and render markdown
+    resetHeadingSlugs();
+    const htmlContent = marked.parse(content);
+    articleContent.innerHTML = htmlContent;
 
     // Apply syntax highlighting
     articleContent.querySelectorAll('pre code').forEach((block) => {

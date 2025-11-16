@@ -9,7 +9,8 @@
     <link rel="alternate icon" type="image/svg+xml" href="images/favicon.svg">
     <link rel="apple-touch-icon" href="images/favicon.svg">
     <link rel="stylesheet" href="css/style.css">
-    <!-- Note: Marked.js NOT needed - HTML pre-rendered at build time (Docusaurus approach) -->
+    <!-- Marked.js for Markdown parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
     <!-- Highlight.js for syntax highlighting -->
     <link rel="stylesheet" id="highlight-theme" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
@@ -121,6 +122,12 @@
 
                     <!-- Article with TOC Sidebar -->
                     <div class="article-with-toc">
+                        <!-- Table of Contents Sidebar (Left) -->
+                        <aside class="toc" id="toc">
+                            <div class="toc-header">📑 目次</div>
+                            <nav class="toc-content" id="tocContent"></nav>
+                        </aside>
+
                         <div class="article-content-wrapper">
                             <div class="article-content" id="articleContent">
                                 <div class="welcome-message">
@@ -129,12 +136,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Table of Contents Sidebar -->
-                        <aside class="toc" id="toc">
-                            <div class="toc-header">📑 目次</div>
-                            <nav class="toc-content" id="tocContent"></nav>
-                        </aside>
                     </div>
                 </article>
             </div>
