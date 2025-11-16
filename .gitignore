@@ -28,7 +28,12 @@ Thumbs.db
 *.swo
 *~
 
-# Build outputs
+# Build outputs (Legacy)
 dist/
 build/
-# data/  ← コメントアウトしてコミット可能にする
+# data/  ← コメントアウトしてコミット可能にする（Legacy用）
+
+# Next.js
+.next/
+out/
+next-env.d.ts
