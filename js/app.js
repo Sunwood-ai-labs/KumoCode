@@ -87,7 +87,7 @@ marked.setOptions({ renderer: renderer });
  */
 async function fetchArticles() {
     try {
-        const response = await fetch('/api/articles');
+        const response = await fetch('/data/articles.json');
         if (!response.ok) {
             throw new Error('Failed to fetch articles');
         }
@@ -105,7 +105,9 @@ async function fetchArticles() {
  */
 async function fetchArticleContent(filename) {
     try {
-        const response = await fetch(`/api/articles/${encodeURIComponent(filename)}`);
+        // Convert .md filename to .json
+        const jsonFilename = filename.replace('.md', '.json');
+        const response = await fetch(`/data/articles/${encodeURIComponent(jsonFilename)}`);
         if (!response.ok) {
             throw new Error('Failed to fetch article content');
         }

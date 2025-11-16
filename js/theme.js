@@ -36,14 +36,14 @@ class ThemeManager {
    */
   async loadAvailableThemes() {
     try {
-      const response = await fetch('/api/themes');
+      const response = await fetch('/data/themes.json');
       const data = await response.json();
       this.themes = data.themes || [];
       // Return full data object including default theme
       return data;
     } catch (error) {
       console.error('Failed to load themes:', error);
-      return { themes: [], default: 'default' };
+      return { themes: [], default: 'ocean' };
     }
   }
 
@@ -52,7 +52,7 @@ class ThemeManager {
    */
   async applyTheme(themeName) {
     try {
-      const response = await fetch(`/api/themes/${themeName}`);
+      const response = await fetch(`/data/themes/${themeName}.json`);
       if (!response.ok) {
         throw new Error(`Failed to load theme: ${themeName}`);
       }
@@ -69,10 +69,10 @@ class ThemeManager {
       return themeData;
     } catch (error) {
       console.error('Error applying theme:', error);
-      // Fallback to default theme if loading fails
-      if (themeName !== 'default') {
-        console.log('Falling back to default theme');
-        return this.applyTheme('default');
+      // Fallback to ocean theme if loading fails
+      if (themeName !== 'ocean') {
+        console.log('Falling back to ocean theme');
+        return this.applyTheme('ocean');
       }
     }
   }
