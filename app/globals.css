@@ -45,8 +45,8 @@
     --transition-slow: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Dark Mode */
-body.dark-mode {
+/* Dark Mode - next-themes uses .dark class on html element */
+.dark {
     --primary-color: #818cf8;
     --primary-hover: #6366f1;
     --primary-light: #a5b4fc;
