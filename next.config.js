@@ -11,6 +11,10 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true, // ビルド時のTypeScriptエラーを無視
   },
+  // Note: 静的エクスポート時、ブラウザコンソールに以下のエラーが表示される場合がありますが、
+  // これは正常な動作です（機能には影響しません）:
+  // - "Failed to load resource: net::ERR_BLOCKED_BY_CLIENT" (広告ブロッカーによるブロック)
+  // - "GET /KumoCode.txt?_rsc=xxx 404" (Next.js App RouterのRSCプリフェッチ)
 }
 
 module.exports = nextConfig
