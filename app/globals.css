@@ -798,7 +798,7 @@ body.dark-mode .theme-option-desc {
     padding: 24px;
     box-shadow: var(--shadow-sm);
     transition: var(--transition-base);
-    width: 280px;
+    width: 420px;
     flex-shrink: 0;
     position: sticky;
     top: 24px;
@@ -881,16 +881,16 @@ body.dark-mode .theme-option-desc {
 }
 
 .tag-filter-list-sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
 }
 
 .tag-filter-item-sidebar {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
     color: var(--text-primary);
-    padding: 10px 16px;
+    padding: 12px 14px;
     border-radius: 10px;
     font-size: 14px;
     font-weight: 500;
@@ -900,6 +900,10 @@ body.dark-mode .theme-option-desc {
     text-align: left;
     position: relative;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
 }
 
 .tag-filter-item-sidebar::before {
@@ -938,6 +942,36 @@ body.dark-mode .theme-option-desc {
     transform: scaleY(1);
 }
 
+.tag-filter-item-sidebar .tag-name {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tag-filter-item-sidebar .tag-count {
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--primary-color);
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+    min-width: 24px;
+    text-align: center;
+}
+
+.tag-filter-item-sidebar:hover .tag-count {
+    background: var(--primary-color);
+    color: white;
+}
+
+.tag-filter-item-sidebar.active .tag-count {
+    background: var(--primary-color);
+    color: white;
+}
+
 .home-content-wrapper {
     flex: 1;
     min-width: 0;
@@ -957,12 +991,19 @@ body.dark-mode .theme-option-desc {
     }
 
     .tag-filter-list-sidebar {
-        flex-direction: row;
-        flex-wrap: wrap;
+        grid-template-columns: repeat(3, 1fr);
     }
+}
 
-    .tag-filter-item-sidebar {
-        flex: 0 0 auto;
+@media (max-width: 768px) {
+    .tag-filter-list-sidebar {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .tag-filter-list-sidebar {
+        grid-template-columns: 1fr;
     }
 }
 

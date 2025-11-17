@@ -14,10 +14,16 @@ export default function HomeContent({ articles }: HomeContentProps) {
   const router = useRouter()
   const selectedTag = searchParams.get('tag')
 
-  // 全てのタグを収集
-  const allTags = Array.from(
-    new Set(articles.flatMap((article) => article.tags))
-  ).sort()
+  // 全てのタグを収集し、使用頻度をカウント
+  const tagCounts = articles.reduce((acc, article) => {
+    article.tags.forEach((tag) => {
+      acc[tag] = (acc[tag] || 0) + 1
+    })
+    return acc
+  }, {} as Record<string, number>)
+
+  // タグを使用頻度順にソート
+  const allTags = Object.keys(tagCounts).sort((a, b) => tagCounts[b] - tagCounts[a])
 
   // タグでフィルタリング
   const filteredArticles = selectedTag
@@ -43,6 +49,7 @@ export default function HomeContent({ articles }: HomeContentProps) {
         {/* 左サイドバー: タグフィルター */}
         <TagFilterSidebar
           allTags={allTags}
+          tagCounts={tagCounts}
           selectedTag={selectedTag}
           articleCount={filteredArticles.length}
         />

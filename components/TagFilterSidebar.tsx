@@ -4,11 +4,12 @@ import { useRouter } from 'next/navigation'
 
 interface TagFilterSidebarProps {
   allTags: string[]
+  tagCounts: Record<string, number>
   selectedTag: string | null
   articleCount: number
 }
 
-export default function TagFilterSidebar({ allTags, selectedTag, articleCount }: TagFilterSidebarProps) {
+export default function TagFilterSidebar({ allTags, tagCounts, selectedTag, articleCount }: TagFilterSidebarProps) {
   const router = useRouter()
 
   const handleTagClick = (tag: string) => {
@@ -57,7 +58,8 @@ export default function TagFilterSidebar({ allTags, selectedTag, articleCount }:
             onClick={() => handleTagClick(tag)}
             className={`tag-filter-item-sidebar ${selectedTag === tag ? 'active' : ''}`}
           >
-            {tag}
+            <span className="tag-name">{tag}</span>
+            <span className="tag-count">{tagCounts[tag]}</span>
           </button>
         ))}
       </div>
