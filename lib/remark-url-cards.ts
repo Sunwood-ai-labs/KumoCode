@@ -8,8 +8,8 @@ const remarkUrlCards: Plugin<[], Root> = () => {
       // URL patterns to match
       const urlPatterns = [
         { regex: /^https?:\/\/(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s]+)$/, type: 'youtube-embed' },
-        { regex: /^https?:\/\/(?:twitter\.com|x\.com)\/\w+\/status\/\d+$/, type: 'twitter-embed' },
-        { regex: /^https?:\/\/(?:www\.)?nicovideo\.jp\/watch\/(sm\d+|so\d+)$/, type: 'nicovideo-embed' },
+        { regex: /^https?:\/\/x\.com\/\w+\/status\/\d+$/, type: 'twitter-embed' },
+        { regex: /^https?:\/\/(?:www\.)?nicovideo\.jp\/watch\/(sm\d+)$/, type: 'nicovideo-embed' },
       ]
 
       let url: string | null = null
