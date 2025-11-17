@@ -8,7 +8,7 @@ import remarkUrlCards from '@/lib/remark-url-cards'
 import { getAllArticleSlugs, getArticleBySlug } from '@/lib/markdown'
 import Header from '@/components/Header'
 import TableOfContents from '@/components/TableOfContents'
-import UrlEmbed from '@/components/UrlEmbed'
+import { YoutubeEmbed, TwitterEmbed, NicovideoEmbed } from '@/components/EmbedComponents'
 import Link from 'next/link'
 
 // KaTeX CSS
@@ -66,10 +66,12 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
               <div className="article-content-wrapper">
                 <div className="article-content">
                   <ReactMarkdown
-                    remarkPlugins={[remarkGfm, remarkMath, remarkUrlCards]}
+                    remarkPlugins={[remarkUrlCards, remarkGfm, remarkMath]}
                     rehypePlugins={[rehypeHighlight, rehypeKatex]}
                     components={{
-                      p: UrlEmbed as any,
+                      'youtube-embed': ({ url }: any) => <YoutubeEmbed url={url} />,
+                      'twitter-embed': ({ url }: any) => <TwitterEmbed url={url} />,
+                      'nicovideo-embed': ({ url }: any) => <NicovideoEmbed url={url} />,
                     }}
                   >
                     {article.content}

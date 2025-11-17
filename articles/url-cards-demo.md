@@ -6,7 +6,7 @@ tags: [URL Cards, Embed, Social Media]
 
 ## はじめに
 
-このページは、KumoCodeで対応しているURL埋め込み機能のデモンストレーションページです。YouTubeやニコニコ動画、Twitter/Xなど、複数のプラットフォームからのURLを直接記事に埋め込むことができます。
+このページは、KumoCodeで対応しているURL埋め込み機能のデモンストレーションページです。YouTubeやニコニコ動画（sm動画）、X（旧Twitter）など、複数のプラットフォームからのURLを直接記事に埋め込むことができます。
 
 URL埋め込み機能を使用することで、記事の中に動画やツイートを直接表示でき、読者はブラウザを離れることなくコンテンツを視聴できます。本ページでは、それぞれのプラットフォームでの埋め込み方法と実例を紹介します。
 
@@ -18,7 +18,7 @@ YouTubeの動画を記事に埋め込むことができます。通常のYouTube
 
 以下のような標準的なYouTubeのURLを使用できます：
 
-https://www.youtube.com/watch?v=dQw4w9WgXcQ
+https://www.youtube.com/watch?v=XcgEMfYnecQ
 
 このフォーマットは、YouTubeの動画ページから直接コピーした標準的なURLです。動画IDはv=パラメータの後に続く文字列です。
 
@@ -26,49 +26,34 @@ https://www.youtube.com/watch?v=dQw4w9WgXcQ
 
 短縮URL形式も対応しています：
 
-https://youtu.be/dQw4w9WgXcQ
+https://youtu.be/XcgEMfYnecQ
 
 この形式はYouTubeが提供する短縮URLで、URLが短くなるため、SNSでの共有やメッセージに適しています。
 
 ## ニコニコ動画の埋め込み
 
-ニコニコ動画の動画を埋め込むことができます。sm形式とso形式の両方の動画IDに対応しています。
+ニコニコ動画の動画を埋め込むことができます。sm形式の動画IDに対応しています。
 
-### 例1：sm形式の動画ID
+### 例：sm形式の動画ID
 
 ニコニコ動画の標準的なIDフォーマット（sm形式）：
 
-https://www.nicovideo.jp/watch/sm9
+https://www.nicovideo.jp/watch/sm45604726
 
 このsmで始まるIDは、ニコニコ動画で最も一般的な動画ID形式です。sm（Standard Movie）の略で、レガシーな形式として広く使われています。
 
-### 例2：so形式の動画ID
 
-より新しいフォーマットのso形式にも対応しています：
+## X（Twitter）の埋め込み
 
-https://www.nicovideo.jp/watch/so40920556
+Xのツイートを埋め込むことができます。x.comドメインに対応しています。
 
-soで始まるIDは、ニコニコ動画の新しいID形式で、より多くの動画を識別できるようになっています。
+### 例：x.comドメインのURL
 
-## Twitter/Xの埋め込み
+X（旧Twitter）のツイートURLを使用できます：
 
-TwitterおよびXのツイートを埋め込むことができます。twitter.comドメインとx.comドメインの両方に対応しています。
+https://x.com/hAru_mAki_ch/status/1990338902180434206
 
-### 例1：twitter.comドメインのURL
-
-Twitter時代のURLフォーマット：
-
-https://twitter.com/TwitterDev/status/1445078208190291973
-
-このURLはTwitterのツイートへの標準的なリンク形式です。ツイートの詳細ページから直接コピーできます。
-
-### 例2：x.comドメインのURL
-
-Xに移行後のドメインでも同じように機能します：
-
-https://x.com/TwitterDev/status/1445078208190291973
-
-Twitterが新しくXにブランド変更されたため、URLもx.comドメインで提供されるようになりました。両方の形式が互換性を保っています。
+Twitterが新しくXにブランド変更されたため、URLはx.comドメインで提供されるようになりました。
 
 ## 使い方
 
@@ -87,10 +72,8 @@ URL埋め込み機能を正しく利用するために、以下のポイント�
 
 #### ニコニコ動画
 - `https://www.nicovideo.jp/watch/sm[ID]` - sm形式の動画
-- `https://www.nicovideo.jp/watch/so[ID]` - so形式の動画
 
-#### Twitter/X
-- `https://twitter.com/[USER]/status/[TWEET_ID]` - Twitterのツイート
+#### X（Twitter）
 - `https://x.com/[USER]/status/[TWEET_ID]` - Xのツイート
 
 ## 注意事項
@@ -108,7 +91,7 @@ URL埋め込み機能を使用する際には、以下の点にご注意くだ�
 
 ## まとめ
 
-KumoCodeのURL埋め込み機能は、YouTube、ニコニコ動画、Twitter/Xなど複数のプラットフォームをサポートしており、記事をより豊かで魅力的にすることができます。
+KumoCodeのURL埋め込み機能は、YouTube、ニコニコ動画（sm動画）、X（旧Twitter）など複数のプラットフォームをサポートしており、記事をより豊かで魅力的にすることができます。
 
 このデモページで紹介した各プラットフォームの対応形式を参考にしながら、自分の記事の中にコンテンツを埋め込んでみてください。ユーザーはブラウザを離れることなく、記事内で直接コンテンツを視聴・閲覧でき、より良い読書体験が実現します。
 
