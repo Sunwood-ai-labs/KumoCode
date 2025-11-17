@@ -2,6 +2,7 @@
 const nextConfig = {
   output: 'export', // 静的サイト生成（GitHub Pages対応）
   basePath: process.env.NODE_ENV === 'production' ? '/KumoCode' : '',
+  assetPrefix: process.env.NODE_ENV === 'production' ? '/KumoCode' : '',
   images: {
     unoptimized: true, // GitHub Pagesでは画像最適化が使えない
   },
