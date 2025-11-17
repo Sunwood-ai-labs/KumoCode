@@ -782,6 +782,191 @@ body.dark-mode .theme-option-desc {
 }
 
 /* ==========================================
+   Tag Filter Sidebar (Left Sidebar)
+   ========================================== */
+.home-with-sidebar {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+}
+
+.tag-filter-sidebar {
+    background: var(--card-bg);
+    backdrop-filter: var(--blur-md);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition-base);
+    width: 280px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 24px;
+    max-height: calc(100vh - 48px);
+    overflow-y: auto;
+}
+
+.tag-filter-sidebar:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.tag-filter-sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--border-color);
+    position: relative;
+}
+
+.tag-filter-sidebar-header::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary-color) 0%, var(--accent-color) 100%);
+}
+
+.tag-filter-sidebar-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.clear-filter-btn-sidebar {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    font-size: 14px;
+    padding: 0;
+}
+
+.clear-filter-btn-sidebar:hover {
+    background: var(--primary-hover);
+    transform: scale(1.1);
+}
+
+.selected-tag-info-sidebar {
+    background: linear-gradient(90deg, rgba(99, 102, 241, 0.1) 0%, transparent 100%);
+    border-left: 3px solid var(--primary-color);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.selected-tag-info-sidebar strong {
+    color: var(--primary-color);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.selected-tag-info-sidebar .article-count {
+    color: var(--text-secondary);
+    font-size: 12px;
+}
+
+.tag-filter-list-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.tag-filter-item-sidebar {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    box-shadow: var(--shadow-sm);
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+}
+
+.tag-filter-item-sidebar::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--primary-color) 0%, var(--accent-color) 100%);
+    transform: scaleY(0);
+    transition: var(--transition-base);
+}
+
+.tag-filter-item-sidebar:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    transform: translateX(4px);
+    box-shadow: var(--shadow-md);
+}
+
+.tag-filter-item-sidebar:hover::before {
+    transform: scaleY(1);
+}
+
+.tag-filter-item-sidebar.active {
+    background: linear-gradient(90deg, rgba(99, 102, 241, 0.15) 0%, transparent 100%);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    font-weight: 700;
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+}
+
+.tag-filter-item-sidebar.active::before {
+    transform: scaleY(1);
+}
+
+.home-content-wrapper {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Responsive adjustments for sidebar */
+@media (max-width: 1024px) {
+    .home-with-sidebar {
+        flex-direction: column;
+    }
+
+    .tag-filter-sidebar {
+        position: static;
+        width: 100%;
+        max-height: none;
+        margin-bottom: 32px;
+    }
+
+    .tag-filter-list-sidebar {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .tag-filter-item-sidebar {
+        flex: 0 0 auto;
+    }
+}
+
+/* ==========================================
    Article Tags (in article page)
    ========================================== */
 .article-tags {
