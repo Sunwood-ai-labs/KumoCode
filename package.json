@@ -18,16 +18,19 @@
   "dependencies": {
     "gray-matter": "^4.0.3",
     "katex": "^0.16.25",
+    "mermaid": "^11.12.1",
     "next": "^14.2.0",
     "next-mdx-remote": "^4.4.1",
     "next-themes": "^0.3.0",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
     "react-markdown": "^10.1.0",
+    "react-tweet": "^3.2.2",
     "rehype-highlight": "^7.0.2",
     "rehype-katex": "^7.0.1",
     "remark-gfm": "^4.0.1",
-    "remark-math": "^6.0.0"
+    "remark-math": "^6.0.0",
+    "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
     "@types/node": "^20.14.0",
