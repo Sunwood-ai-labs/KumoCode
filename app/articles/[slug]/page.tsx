@@ -8,6 +8,7 @@ import remarkUrlCards from '@/lib/remark-url-cards'
 import { getAllArticleSlugs, getArticleBySlug } from '@/lib/markdown'
 import Header from '@/components/Header'
 import TableOfContents from '@/components/TableOfContents'
+import ArticleTags from '@/components/ArticleTags'
 import { YoutubeEmbed, TwitterEmbed, NicovideoEmbed } from '@/components/EmbedComponents'
 import Link from 'next/link'
 
@@ -52,9 +53,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
               <h1 className="article-title">{article.title}</h1>
               <div className="article-meta">
                 <span>📅 {new Date(article.date).toLocaleDateString('ja-JP')}</span>
-                {article.tags && article.tags.length > 0 && (
-                  <span>🏷️ {article.tags.join(', ')}</span>
-                )}
+                <ArticleTags tags={article.tags} />
               </div>
             </header>
 
