@@ -6,6 +6,9 @@ import './globals.css'
 export const metadata: Metadata = {
   title: 'KumoCode - Modern Markdown Documentation Platform',
   description: 'Next.js-powered Markdown documentation platform with theme support',
+  icons: {
+    icon: '/images/favicon.svg',
+  },
 }
 
 export default function RootLayout({
@@ -25,7 +28,6 @@ export default function RootLayout({
   return (
     <html lang="ja" suppressHydrationWarning>
       <head>
-        <link rel="icon" type="image/svg+xml" href="/images/favicon.svg" />
         {themeData && (
           <>
             {/* Theme-specific syntax highlighting */}
