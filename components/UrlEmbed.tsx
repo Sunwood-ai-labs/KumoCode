@@ -68,10 +68,13 @@ const UrlEmbed: React.FC<UrlEmbedProps> = ({ children }) => {
       <div className="url-card youtube-card">
         <div className="url-card-embed">
           <iframe
+            width="560"
+            height="315"
             src={`https://www.youtube.com/embed/${videoId}`}
             title="YouTube video player"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
             allowFullScreen
           />
         </div>
@@ -120,23 +123,13 @@ const UrlEmbed: React.FC<UrlEmbedProps> = ({ children }) => {
     const [, username, tweetId] = twitterMatch
 
     return (
-      <div className="url-card twitter-card">
-        <div className="url-card-embed">
-          <blockquote className="twitter-tweet" data-theme="light">
-            <a href={`https://twitter.com/${username}/status/${tweetId}`}>
-              ツイートを読み込み中...
-            </a>
-          </blockquote>
-        </div>
-        <a
-          href={`https://twitter.com/${username}/status/${tweetId}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="url-card-link"
-        >
-          Twitter/Xで見る
-        </a>
-      </div>
+      <>
+        <blockquote className="twitter-tweet" data-theme="light">
+          <a href={`https://twitter.com/${username}/status/${tweetId}?ref_src=twsrc%5Etfw`}>
+            ツイートを読み込み中...
+          </a>
+        </blockquote>
+      </>
     )
   }
 
