@@ -1132,8 +1132,6 @@ body.dark-mode .theme-option-desc {
     flex-shrink: 0;
     position: sticky;
     top: 24px;
-    max-height: calc(100vh - 48px);
-    overflow-y: auto;
 }
 
 .toc.visible {
