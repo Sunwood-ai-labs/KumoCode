@@ -531,8 +531,10 @@ body.dark-mode .theme-option-desc {
 
 .article-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    grid-template-columns: 1fr;
     gap: 24px;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
 .article-card {
@@ -621,6 +623,70 @@ body.dark-mode .theme-option-desc {
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     background: var(--gradient-tag-hover);
+}
+
+/* Article Card Links */
+.article-card-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border-color);
+}
+
+.article-link-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    transition: var(--transition-fast);
+    border: 1px solid transparent;
+}
+
+.article-link-badge svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
+/* Colab Badge */
+.colab-badge {
+    background: rgba(255, 152, 0, 0.1);
+    color: #ff9800;
+    border-color: rgba(255, 152, 0, 0.3);
+}
+
+.colab-badge:hover {
+    background: rgba(255, 152, 0, 0.2);
+    border-color: #ff9800;
+}
+
+/* Demo Badge */
+.demo-badge {
+    background: rgba(33, 150, 243, 0.1);
+    color: #2196f3;
+    border-color: rgba(33, 150, 243, 0.3);
+}
+
+.demo-badge:hover {
+    background: rgba(33, 150, 243, 0.2);
+    border-color: #2196f3;
+}
+
+/* Repo Badge */
+.repo-badge {
+    background: rgba(76, 175, 80, 0.1);
+    color: #4caf50;
+    border-color: rgba(76, 175, 80, 0.3);
+}
+
+.repo-badge:hover {
+    background: rgba(76, 175, 80, 0.2);
+    border-color: #4caf50;
 }
 
 /* ==========================================
@@ -1447,5 +1513,180 @@ a:focus {
 
     .article-content {
         padding: 20px;
+    }
+}
+
+/* ==========================================
+   Frontmatter Links (Colab, Demo, Repo)
+   ========================================== */
+.frontmatter-links {
+    margin-bottom: 32px;
+}
+
+.frontmatter-links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+}
+
+.frontmatter-link-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    background: var(--card-bg);
+    backdrop-filter: var(--blur-md);
+    border: 2px solid var(--border-color);
+    border-radius: 16px;
+    text-decoration: none;
+    transition: var(--transition-base);
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    overflow: hidden;
+}
+
+.frontmatter-link-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: var(--transition-base);
+}
+
+.frontmatter-link-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.frontmatter-link-card:hover::before {
+    transform: scaleX(1);
+}
+
+/* Google Colab Card */
+.colab-card {
+    border-color: rgba(255, 152, 0, 0.3);
+}
+
+.colab-card::before {
+    background: linear-gradient(90deg, #ff9800 0%, #f57c00 100%);
+}
+
+.colab-card:hover {
+    border-color: #ff9800;
+}
+
+.colab-card .frontmatter-link-icon {
+    color: #ff9800;
+}
+
+/* Demo App Card */
+.demo-card {
+    border-color: rgba(33, 150, 243, 0.3);
+}
+
+.demo-card::before {
+    background: linear-gradient(90deg, #2196f3 0%, #1976d2 100%);
+}
+
+.demo-card:hover {
+    border-color: #2196f3;
+}
+
+.demo-card .frontmatter-link-icon {
+    color: #2196f3;
+}
+
+/* Repository Card */
+.repo-card {
+    border-color: rgba(76, 175, 80, 0.3);
+}
+
+.repo-card::before {
+    background: linear-gradient(90deg, #4caf50 0%, #388e3c 100%);
+}
+
+.repo-card:hover {
+    border-color: #4caf50;
+}
+
+.repo-card .frontmatter-link-icon {
+    color: #4caf50;
+}
+
+/* Card Components */
+.frontmatter-link-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    transition: var(--transition-base);
+}
+
+.frontmatter-link-icon svg {
+    width: 28px;
+    height: 28px;
+}
+
+.frontmatter-link-card:hover .frontmatter-link-icon {
+    transform: scale(1.1);
+}
+
+.frontmatter-link-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.frontmatter-link-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+    line-height: 1.3;
+}
+
+.frontmatter-link-description {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+.frontmatter-link-arrow {
+    font-size: 24px;
+    color: var(--text-muted);
+    transition: var(--transition-base);
+    flex-shrink: 0;
+}
+
+.frontmatter-link-card:hover .frontmatter-link-arrow {
+    transform: translateX(4px);
+    color: var(--text-primary);
+}
+
+/* Responsive Design for Frontmatter Links */
+@media (max-width: 768px) {
+    .frontmatter-links-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .frontmatter-link-card {
+        padding: 16px 20px;
+    }
+
+    .frontmatter-link-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .frontmatter-link-icon svg {
+        width: 24px;
+        height: 24px;
     }
 }
