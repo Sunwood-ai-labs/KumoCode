@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  Modern Markdown Documentation Platform inspired by Docusaurus architecture
+  Modern Markdown Documentation Platform built with Next.js
 </p>
 
 <p align="center">
@@ -17,16 +17,7 @@
 
 ## 概要
 
-KumoCodeは、Docusaurusのアーキテクチャを参考にした、マークダウンベースのドキュメントプラットフォームです。GitHub Pagesでの静的ホスティングに最適化されており、美しいJSONテーマシステムを搭載しています。
-
-## 🔄 アーキテクチャの変遷
-
-KumoCodeは当初、Express.jsベースのサーバーサイドアプリケーションとして開発されましたが、バージョン2.0.0でNext.js 14に完全移行しました。
-
-- **v1.x**: Express.js + 静的HTML（`legacy/`フォルダに保存）
-- **v2.x以降**: Next.js 14 + React（現在のアーキテクチャ）
-
-レガシーコードは参考のため`legacy/`フォルダに保存されていますが、本番環境では使用されていません。
+KumoCodeは、Next.js 14とReactで構築された、モダンなマークダウンベースのドキュメントプラットフォームです。GitHub Pagesでの静的ホスティングに最適化されており、美しいJSONテーマシステムを搭載しています。
 
 ## 特徴
 
@@ -44,12 +35,12 @@ KumoCodeは当初、Express.jsベースのサーバーサイドアプリケー�
 - 🎬 **メディア埋め込み**: YouTube、Twitter、ニコニコ動画対応
 - 🔗 **自動目次**: 見出しから自動生成
 
-### Docusaurus風アーキテクチャ
-- 🔧 **config.js**: docusaurus.config.js相当の設定ファイル
-- 📦 **ビルドプロセス**: Markdown→HTML事前レンダリング
-- 🌐 **ベースURL対応**: サブパスでのデプロイ対応
-- 🎯 **シンプル設計**: 重複なし、JSONソースファイル
-- 404 **ハンドリング**: SPAルーティング対応
+### アーキテクチャ
+- 🔧 **設定ファイル**: config.jsによる柔軟な設定管理
+- 📦 **静的サイト生成**: Next.jsによる最適化されたビルド
+- 🌐 **GitHub Pages対応**: サブパスでのデプロイ対応
+- 🎯 **シンプル設計**: クリーンなファイル構成
+- ⚡ **高速ルーティング**: Next.jsのApp Routerを活用
 
 ## デモ
 
@@ -67,19 +58,22 @@ KumoCodeは当初、Express.jsベースのサーバーサイドアプリケー�
 
 ## 技術スタック
 
-### フロントエンド
-- HTML5
-- CSS3 (カスタムデザイン)
-- JavaScript (ES6+)
-- [Marked.js](https://marked.js.org/) - Markdownパーサー
-- [Highlight.js](https://highlightjs.org/) - シンタックスハイライト
-- [KaTeX](https://katex.org/) - 数式レンダリング
+### フレームワーク
+- [Next.js 14](https://nextjs.org/) - Reactフレームワーク
+- [React 18](https://react.dev/) - UIライブラリ
+- TypeScript - 型安全な開発
 
-### バックエンド
-- Node.js
-- Express.js
-- CORS
-- dotenv - 環境変数管理
+### Markdown & コンテンツ処理
+- [react-markdown](https://github.com/remarkjs/react-markdown) - Markdownレンダリング
+- [gray-matter](https://github.com/jonschlinkert/gray-matter) - Frontmatterパース
+- [remark-gfm](https://github.com/remarkjs/remark-gfm) - GitHub Flavored Markdown
+- [remark-math](https://github.com/remarkjs/remark-math) - 数式サポート
+
+### UI & スタイリング
+- [rehype-highlight](https://github.com/rehypejs/rehype-highlight) - シンタックスハイライト
+- [rehype-katex](https://github.com/remarkjs/remark-math/tree/main/packages/rehype-katex) - 数式レンダリング
+- [Mermaid](https://mermaid.js.org/) - 図表生成
+- [next-themes](https://github.com/pacocoursey/next-themes) - テーマ管理
 
 ## 📖 ドキュメント
 
@@ -107,7 +101,7 @@ cd KumoCode
 npm install
 
 # 3. 開発サーバーを起動
-npm start
+npm run dev
 
 # 4. ブラウザでアクセス
 # http://localhost:3000
@@ -119,8 +113,8 @@ npm start
 # 静的ファイルをビルド
 npm run build
 
-# ビルドをプレビュー
-npm run serve
+# ローカルでプロダクションサーバーを起動
+npm start
 ```
 
 ## 使い方
@@ -190,7 +184,7 @@ $$
 
 ## Configuration
 
-サイトは `config.js` で設定します（Docusaurusの `docusaurus.config.js` に相当）:
+サイトは `config.js` で設定します:
 
 ```javascript
 window.kumoConfig = {
@@ -214,45 +208,46 @@ window.kumoConfig = {
 
 ```
 KumoCode/
-├── articles/          # Markdown記事（ソースファイル）
+├── app/                    # Next.js App Router
+│   ├── articles/[slug]/   # 動的記事ページ
+│   ├── layout.tsx         # ルートレイアウト
+│   └── page.tsx           # ホームページ
+├── articles/              # Markdown記事（ソースファイル）
 │   ├── example.md
 │   └── ...
-├── themes/            # JSONテーマ定義（ソースファイル）
+├── components/            # Reactコンポーネント
+│   ├── ArticleCard.tsx
+│   ├── ArticleContent.tsx
+│   └── ...
+├── lib/                   # ユーティリティ関数
+│   ├── articles.ts        # 記事処理ロジック
+│   └── themes.ts          # テーマ管理ロジック
+├── themes/                # JSONテーマ定義
 │   ├── ocean.json
 │   ├── default.json
 │   ├── cyberpunk.json
 │   └── sunset.json
-├── css/              # スタイルシート
-├── js/               # JavaScriptファイル
-│   ├── app.js       # メインアプリケーション
-│   └── theme.js     # テーママネージャー
-├── data/             # ビルド成果物（.gitignore対象）
-│   ├── articles.json      # 記事リストメタデータ
-│   ├── articles/          # 事前レンダリングHTML
-│   │   └── *.json
-│   └── themes.json        # テーマリストメタデータ
-├── config.js         # サイト設定（docusaurus.config.js相当）
-├── build-static.js   # 静的ファイル生成スクリプト
-├── 404.html          # SPAルーティング用404ページ
-├── .nojekyll         # GitHub Pages設定
-└── index.html        # エントリーポイント
+├── public/                # 静的ファイル
+│   └── images/
+├── docs/                  # ドキュメント
+├── examples/              # サンプル記事
+├── config.js              # サイト設定
+├── next.config.js         # Next.js設定
+├── tsconfig.json          # TypeScript設定
+└── package.json           # 依存関係
 ```
 
 ### アーキテクチャの特徴
 
-**ソースファイル（Gitにコミット）:**
-- `articles/*.md` - Markdown記事（人間が編集）
-- `themes/*.json` - JSONテーマ（人間が編集）
+**Next.js App Router:**
+- 動的ルーティングで記事ページを生成
+- 静的サイト生成（SSG）による高速化
+- TypeScriptによる型安全な開発
 
-**ビルド成果物（.gitignoreで除外）:**
-- `data/articles.json` - 記事リストメタデータ
-- `data/articles/*.json` - 事前レンダリングHTML
-- `data/themes.json` - テーマリストメタデータ
-
-**ビルドプロセス:**
-- 記事のみ変換: `Markdown → HTML` (build-static.js)
-- テーマ: `themes/*.json`から直接読み込み（変換なし）
-- シンプル、重複なし、Docusaurus原則に従う
+**コンテンツ管理:**
+- Markdown記事をファイルシステムから読み込み
+- Frontmatterによるメタデータ管理
+- JSONテーマによる柔軟なスタイリング
 
 ## Deployment
 
@@ -261,15 +256,8 @@ KumoCode/
 GitHub Actionsで自動デプロイされます:
 
 1. `main` ブランチにプッシュ
-2. GitHub Actionsが `build-static.js` を実行
-3. GitHub Pagesにデプロイ
-
-`.github/workflows/static-site.yml` で設定:
-
-```yaml
-env:
-  DEFAULT_THEME: ocean  # デフォルトテーマを設定
-```
+2. GitHub Actionsが Next.js のビルドを実行
+3. 静的ファイルを GitHub Pages にデプロイ
 
 ### 手動デプロイ
 
@@ -277,20 +265,13 @@ env:
 # 1. 依存関係をインストール
 npm install
 
-# 2. 静的ファイルをビルド
+# 2. Next.jsで静的ファイルをビルド
 npm run build
 
-# 3. 全ディレクトリをホスティングプロバイダーにデプロイ
-# 必要なファイル:
-#   - index.html, 404.html, .nojekyll
-#   - css/, js/, images/
-#   - articles/ (Markdownソース)
-#   - themes/ (JSONソース)
-#   - data/ (ビルド成果物)
-#   - config.js
+# 3. ビルド成果物（outディレクトリ）をホスティングプロバイダーにデプロイ
 ```
 
-**注意:** `data/` ディレクトリはビルド成果物なので、デプロイ前に必ず `npm run build` を実行してください。
+**注意:** Next.jsは自動的に最適化された静的ファイルを生成します。
 
 ## テーマの作成
 
@@ -370,41 +351,43 @@ npm run build
 
 既存のテーマ（`ocean.json`, `default.json`, `cyberpunk.json`, `sunset.json`）を参考にしてください。
 
-## アーキテクチャ
+## アーキテクチャ詳細
 
-KumoCodeはDocusaurusのアーキテクチャ原則に従っています:
+KumoCodeは以下の原則に基づいて設計されています:
 
-- **静的サイト生成** - Markdown→HTMLの事前レンダリングで最適化
-- **クライアントサイドルーティング** - URLベースナビゲーションのSPA
-- **テーマシステム** - JSONベースのシンプルなテーマシステム
-- **ビルドプロセス** - 記事のみ変換、テーマは直接読み込み
-- **シンプル設計** - 重複なし、ソースファイルとビルド成果物の明確な分離
-- **GitHub Pages最適化** - ベースURL処理、404リダイレクト、.nojekyll
+- **静的サイト生成** - Next.jsのSSGによる最適化されたパフォーマンス
+- **App Router** - Next.js 14の最新ルーティングシステム
+- **テーマシステム** - JSONベースの柔軟なテーマ管理
+- **型安全性** - TypeScriptによる堅牢な開発
+- **GitHub Pages最適化** - 静的ホスティングに最適化された構成
 
-### ビルド時の最適化
+### ビルドプロセス
 
 ```
-ソース → ビルド → 実行時
+ソース → ビルド → デプロイ
 --------------------------------------------------
-articles/*.md → MD→HTML変換 → 事前レンダリングHTML使用
-themes/*.json → メタデータ生成のみ → JSON直接読み込み
+articles/*.md → Next.jsビルド → 静的HTML生成
+themes/*.json → ビルド時読み込み → クライアント側で動的適用
+components/*.tsx → React → 最適化されたJavaScript
 ```
 
 **パフォーマンス:**
-- ランタイムでのMarkdownパース不要
-- JSON.parse()のみ（高速）
-- 初回ロード時間の短縮
+- ビルド時の静的生成による高速化
+- 自動コード分割とバンドル最適化
+- 画像の自動最適化
 
 ## トラブルシューティング
 
 ### 記事が表示されない
 1. `articles/` ディレクトリに `.md` ファイルがあることを確認
 2. ブラウザのコンソールでエラーを確認
-3. サーバーのログを確認
+3. `npm run dev` で開発サーバーのログを確認
+4. ビルド後は `npm run build` を再実行
 
 ### スタイルが適用されない
 1. ブラウザのキャッシュをクリア
-2. `css/style.css` が正しく読み込まれているか確認
+2. Next.jsの `.next` フォルダを削除して再ビルド
+3. テーマファイルが正しく配置されているか確認
 
 ## ライセンス
 
@@ -420,8 +403,8 @@ KumoCode Development Team
 
 ## Credits
 
-- Inspired by [Docusaurus](https://docusaurus.io/) architecture
-- [Marked.js](https://marked.js.org/)
-- [Highlight.js](https://highlightjs.org/)
+- [Next.js](https://nextjs.org/)
+- [React](https://react.dev/)
+- [react-markdown](https://github.com/remarkjs/react-markdown)
 - [KaTeX](https://katex.org/)
 - [Mermaid](https://mermaid.js.org/)
