@@ -16,11 +16,14 @@ export interface ThemeColors {
   link: string
   link_hover: string
   header_text: string
+  tag_text: string
 }
 
 export interface ThemeGradients {
   header: string
   card_hover: string
+  tag: string
+  tag_hover: string
 }
 
 export interface ThemeBackgrounds {

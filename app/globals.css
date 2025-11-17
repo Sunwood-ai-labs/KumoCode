@@ -606,8 +606,8 @@ body.dark-mode .theme-option-desc {
 
 .article-card-tag {
     display: inline-block;
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
-    color: white;
+    background: var(--gradient-tag);
+    color: var(--tag-text);
     padding: 4px 12px;
     border-radius: 12px;
     font-size: 12px;
@@ -620,7 +620,7 @@ body.dark-mode .theme-option-desc {
 .article-card-tag:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    background: linear-gradient(135deg, var(--primary-hover), var(--primary-color));
+    background: var(--gradient-tag-hover);
 }
 
 /* ==========================================
@@ -670,9 +670,9 @@ body.dark-mode .theme-option-desc {
 }
 
 .tag-filter-item.active {
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    background: var(--gradient-tag);
     border-color: var(--primary-color);
-    color: white;
+    color: var(--tag-text);
     box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
 }
 

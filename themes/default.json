@@ -23,11 +23,14 @@
       "code_bg": "#f8fafc",
       "link": "#6366f1",
       "link_hover": "#4f46e5",
-      "header_text": "#ffffff"
+      "header_text": "#ffffff",
+      "tag_text": "#ffffff"
     },
     "gradients": {
       "header": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-      "card_hover": "linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)"
+      "card_hover": "linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)",
+      "tag": "linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)",
+      "tag_hover": "linear-gradient(135deg, #4f46e5 0%, #6366f1 100%)"
     },
     "backgrounds": {
       "header_image": "",
@@ -48,11 +51,14 @@
       "code_bg": "#1e293b",
       "link": "#818cf8",
       "link_hover": "#a5b4fc",
-      "header_text": "#cbd5e1"
+      "header_text": "#cbd5e1",
+      "tag_text": "#f1f5f9"
     },
     "gradients": {
       "header": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-      "card_hover": "linear-gradient(135deg, rgba(129, 140, 248, 0.1) 0%, rgba(244, 114, 182, 0.1) 100%)"
+      "card_hover": "linear-gradient(135deg, rgba(129, 140, 248, 0.1) 0%, rgba(244, 114, 182, 0.1) 100%)",
+      "tag": "linear-gradient(135deg, #818cf8 0%, #a78bfa 100%)",
+      "tag_hover": "linear-gradient(135deg, #6366f1 0%, #818cf8 100%)"
     },
     "backgrounds": {
       "header_image": "",
