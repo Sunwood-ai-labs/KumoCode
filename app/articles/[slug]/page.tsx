@@ -9,6 +9,7 @@ import { getAllArticleSlugs, getArticleBySlug } from '@/lib/markdown'
 import Header from '@/components/Header'
 import TableOfContents from '@/components/TableOfContents'
 import ArticleTags from '@/components/ArticleTags'
+import FrontmatterLinks from '@/components/FrontmatterLinks'
 import { YoutubeEmbed, TwitterEmbed, NicovideoEmbed } from '@/components/EmbedComponents'
 import Link from 'next/link'
 
@@ -63,6 +64,13 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
               <TableOfContents content={article.content} />
 
               <div className="article-content-wrapper">
+                {/* Frontmatter Links */}
+                <FrontmatterLinks
+                  colabUrl={article.colabUrl}
+                  demoUrl={article.demoUrl}
+                  repoUrl={article.repoUrl}
+                />
+
                 <div className="article-content">
                   <ReactMarkdown
                     remarkPlugins={[remarkUrlCards, remarkGfm, remarkMath]}

@@ -9,6 +9,9 @@ export interface ArticleMeta {
   title: string
   date: string
   tags: string[]
+  colabUrl?: string
+  demoUrl?: string
+  repoUrl?: string
 }
 
 export interface Article extends ArticleMeta {
@@ -33,6 +36,9 @@ export function getAllArticles(): ArticleMeta[] {
         title: data.title || slug,
         date: data.date || '',
         tags: data.tags || [],
+        colabUrl: data.colabUrl,
+        demoUrl: data.demoUrl,
+        repoUrl: data.repoUrl,
       }
     })
 
@@ -59,6 +65,9 @@ export function getArticleBySlug(slug: string): Article {
     title: data.title || slug,
     date: data.date || '',
     tags: data.tags || [],
+    colabUrl: data.colabUrl,
+    demoUrl: data.demoUrl,
+    repoUrl: data.repoUrl,
     content,
   }
 }
