@@ -532,9 +532,8 @@ body.dark-mode .theme-option-desc {
 .article-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 24px;
-    max-width: 900px;
-    margin: 0 auto;
+    gap: 28px;
+    width: 100%;
 }
 
 .article-card {
@@ -542,7 +541,7 @@ body.dark-mode .theme-option-desc {
     backdrop-filter: var(--blur-md);
     border: 1px solid var(--border-color);
     border-radius: 16px;
-    padding: 24px;
+    padding: 28px 32px;
     cursor: pointer;
     transition: var(--transition-base);
     box-shadow: var(--shadow-sm);
@@ -580,7 +579,7 @@ body.dark-mode .theme-option-desc {
 }
 
 .article-card-title {
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 700;
     color: var(--text-primary);
     margin-bottom: 12px;
@@ -588,7 +587,7 @@ body.dark-mode .theme-option-desc {
 }
 
 .article-card-date {
-    font-size: 14px;
+    font-size: 15px;
     color: var(--text-tertiary);
     display: flex;
     align-items: center;
@@ -610,9 +609,9 @@ body.dark-mode .theme-option-desc {
     display: inline-block;
     background: var(--gradient-tag);
     color: var(--tag-text);
-    padding: 4px 12px;
+    padding: 6px 14px;
     border-radius: 12px;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 500;
     cursor: pointer;
     transition: var(--transition-fast);
