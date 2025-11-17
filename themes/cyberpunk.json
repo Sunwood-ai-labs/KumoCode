@@ -23,11 +23,14 @@
       "code_bg": "#1a1a2e",
       "link": "#00f5ff",
       "link_hover": "#ff006e",
-      "header_text": "#00f5ff"
+      "header_text": "#00f5ff",
+      "tag_text": "#0f0f23"
     },
     "gradients": {
       "header": "linear-gradient(135deg, #ff006e 0%, #a855f7 50%, #00f5ff 100%)",
-      "card_hover": "linear-gradient(135deg, rgba(255, 0, 110, 0.2) 0%, rgba(0, 245, 255, 0.2) 100%)"
+      "card_hover": "linear-gradient(135deg, rgba(255, 0, 110, 0.2) 0%, rgba(0, 245, 255, 0.2) 100%)",
+      "tag": "linear-gradient(135deg, #ff006e 0%, #00f5ff 100%)",
+      "tag_hover": "linear-gradient(135deg, #00f5ff 0%, #a855f7 100%)"
     },
     "backgrounds": {
       "header_image": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1920&h=400&fit=crop",
@@ -48,11 +51,14 @@
       "code_bg": "#0f0f23",
       "link": "#00f5ff",
       "link_hover": "#ff006e",
-      "header_text": "#ff91e6"
+      "header_text": "#ff91e6",
+      "tag_text": "#0a0a0f"
     },
     "gradients": {
       "header": "linear-gradient(135deg, #ff006e 0%, #8b5cf6 30%, #00f5ff 60%, #ff006e 100%)",
-      "card_hover": "linear-gradient(135deg, rgba(255, 0, 110, 0.3) 0%, rgba(0, 245, 255, 0.3) 100%)"
+      "card_hover": "linear-gradient(135deg, rgba(255, 0, 110, 0.3) 0%, rgba(0, 245, 255, 0.3) 100%)",
+      "tag": "linear-gradient(135deg, #ff006e 0%, #00f5ff 100%)",
+      "tag_hover": "linear-gradient(135deg, #00f5ff 0%, #ff006e 100%)"
     },
     "backgrounds": {
       "header_image": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1920&h=400&fit=crop",
