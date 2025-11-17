@@ -18,7 +18,7 @@ YouTubeの動画を記事に埋め込むことができます。通常のYouTube
 
 以下のような標準的なYouTubeのURLを使用できます：
 
-https://www.youtube.com/watch?v=dQw4w9WgXcQ
+https://www.youtube.com/watch?v=XcgEMfYnecQ
 
 このフォーマットは、YouTubeの動画ページから直接コピーした標準的なURLです。動画IDはv=パラメータの後に続く文字列です。
 
@@ -26,7 +26,7 @@ https://www.youtube.com/watch?v=dQw4w9WgXcQ
 
 短縮URL形式も対応しています：
 
-https://youtu.be/dQw4w9WgXcQ
+https://youtu.be/XcgEMfYnecQ
 
 この形式はYouTubeが提供する短縮URLで、URLが短くなるため、SNSでの共有やメッセージに適しています。
 
@@ -38,35 +38,21 @@ https://youtu.be/dQw4w9WgXcQ
 
 ニコニコ動画の標準的なIDフォーマット（sm形式）：
 
-https://www.nicovideo.jp/watch/sm9
+https://www.nicovideo.jp/watch/sm45604726
 
 このsmで始まるIDは、ニコニコ動画で最も一般的な動画ID形式です。sm（Standard Movie）の略で、レガシーな形式として広く使われています。
 
-### 例2：so形式の動画ID
-
-より新しいフォーマットのso形式にも対応しています：
-
-https://www.nicovideo.jp/watch/so40920556
-
-soで始まるIDは、ニコニコ動画の新しいID形式で、より多くの動画を識別できるようになっています。
 
 ## Twitter/Xの埋め込み
 
 TwitterおよびXのツイートを埋め込むことができます。twitter.comドメインとx.comドメインの両方に対応しています。
 
-### 例1：twitter.comドメインのURL
 
-Twitter時代のURLフォーマット：
-
-https://twitter.com/TwitterDev/status/1445078208190291973
-
-このURLはTwitterのツイートへの標準的なリンク形式です。ツイートの詳細ページから直接コピーできます。
-
-### 例2：x.comドメインのURL
+### 例：x.comドメインのURL
 
 Xに移行後のドメインでも同じように機能します：
 
-https://x.com/TwitterDev/status/1445078208190291973
+https://x.com/hAru_mAki_ch/status/1990338902180434206
 
 Twitterが新しくXにブランド変更されたため、URLもx.comドメインで提供されるようになりました。両方の形式が互換性を保っています。
 
