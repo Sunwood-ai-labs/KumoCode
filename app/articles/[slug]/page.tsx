@@ -66,7 +66,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
               <div className="article-content-wrapper">
                 <div className="article-content">
                   <ReactMarkdown
-                    remarkPlugins={[remarkGfm, remarkMath, remarkUrlCards]}
+                    remarkPlugins={[remarkUrlCards, remarkGfm, remarkMath]}
                     rehypePlugins={[rehypeHighlight, rehypeKatex]}
                     components={{
                       'youtube-embed': ({ url }: any) => <YoutubeEmbed url={url} />,
