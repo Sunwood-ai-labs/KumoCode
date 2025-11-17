@@ -7,6 +7,7 @@ import rehypeHighlight from 'rehype-highlight'
 import { getAllArticleSlugs, getArticleBySlug } from '@/lib/markdown'
 import Header from '@/components/Header'
 import TableOfContents from '@/components/TableOfContents'
+import UrlEmbed from '@/components/UrlEmbed'
 import Link from 'next/link'
 
 // KaTeX CSS
@@ -66,6 +67,9 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
                   <ReactMarkdown
                     remarkPlugins={[remarkGfm, remarkMath]}
                     rehypePlugins={[rehypeHighlight, rehypeKatex]}
+                    components={{
+                      p: UrlEmbed as any,
+                    }}
                   >
                     {article.content}
                   </ReactMarkdown>
