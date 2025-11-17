@@ -12,17 +12,23 @@ const remarkUrlCards: Plugin<[], Root> = () => {
 
         // Check if it's a standalone URL
         const urlPatterns = [
-          { regex: /^https?:\/\/(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s]+)$/, type: 'youtube' },
-          { regex: /^https?:\/\/(?:twitter\.com|x\.com)\/\w+\/status\/\d+$/, type: 'twitter' },
-          { regex: /^https?:\/\/(?:www\.)?nicovideo\.jp\/watch\/(sm\d+|so\d+)$/, type: 'nicovideo' },
+          { regex: /^https?:\/\/(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s]+)$/, type: 'youtube-embed' },
+          { regex: /^https?:\/\/(?:twitter\.com|x\.com)\/\w+\/status\/\d+$/, type: 'twitter-embed' },
+          { regex: /^https?:\/\/(?:www\.)?nicovideo\.jp\/watch\/(sm\d+|so\d+)$/, type: 'nicovideo-embed' },
         ]
 
         for (const { regex, type } of urlPatterns) {
           if (regex.test(url)) {
-            // Replace the paragraph node with a custom node
+            // Replace the paragraph node with a custom node type
             const customNode: any = {
-              type: 'html',
-              value: `<url-card data-url="${url}" data-type="${type}"></url-card>`,
+              type: type,
+              data: {
+                hName: type,
+                hProperties: {
+                  url: url
+                }
+              },
+              url: url
             }
 
             if (parent && typeof index === 'number') {
