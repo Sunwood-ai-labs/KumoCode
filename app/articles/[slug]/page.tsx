@@ -8,8 +8,7 @@ import remarkUrlCards from '@/lib/remark-url-cards'
 import { getAllArticleSlugs, getArticleBySlug } from '@/lib/markdown'
 import Header from '@/components/Header'
 import TableOfContents from '@/components/TableOfContents'
-import MermaidDiagram from '@/components/MermaidDiagram'
-import UrlCard from '@/components/UrlCard'
+import UrlEmbed from '@/components/UrlEmbed'
 import Link from 'next/link'
 
 // KaTeX CSS
@@ -70,29 +69,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
                     remarkPlugins={[remarkGfm, remarkMath, remarkUrlCards]}
                     rehypePlugins={[rehypeHighlight, rehypeKatex]}
                     components={{
-                      code({ node, inline, className, children, ...props }) {
-                        const match = /language-(\w+)/.exec(className || '')
-                        const language = match ? match[1] : ''
-                        const codeString = String(children).replace(/\n$/, '')
-
-                        // Check if it's a Mermaid code block
-                        if (language === 'mermaid' && !inline) {
-                          return <MermaidDiagram chart={codeString} />
-                        }
-
-                        // Default code rendering
-                        return (
-                          <code className={className} {...props}>
-                            {children}
-                          </code>
-                        )
-                      },
-                      // Custom URL card renderer
-                      'url-card': ({ node, ...props }: any) => {
-                        const url = props['data-url']
-                        const type = props['data-type']
-                        return <UrlCard url={url} type={type} />
-                      },
+                      p: UrlEmbed as any,
                     }}
                   >
                     {article.content}
