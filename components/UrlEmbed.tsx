@@ -1,9 +1,28 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect } from 'react'
 
 interface UrlEmbedProps {
   children: React.ReactNode
+}
+
+// Twitter/Xスクリプトの読み込み管理
+let twitterScriptLoaded = false
+let twitterScriptLoading = false
+
+const loadTwitterScript = () => {
+  if (twitterScriptLoaded || twitterScriptLoading) return
+
+  twitterScriptLoading = true
+  const script = document.createElement('script')
+  script.src = 'https://platform.twitter.com/widgets.js'
+  script.async = true
+  script.charset = 'utf-8'
+  script.onload = () => {
+    twitterScriptLoaded = true
+    twitterScriptLoading = false
+  }
+  document.body.appendChild(script)
 }
 
 const UrlEmbed: React.FC<UrlEmbedProps> = ({ children }) => {
@@ -21,6 +40,22 @@ const UrlEmbed: React.FC<UrlEmbedProps> = ({ children }) => {
 
   const url = extractUrl(children)
 
+  useEffect(() => {
+    // Twitter埋め込みがある場合にスクリプトを読み込む
+    if (url && url.match(/(?:twitter\.com|x\.com)\/\w+\/status\/\d+/)) {
+      loadTwitterScript()
+
+      // ウィジェットを再レンダリング
+      const timer = setTimeout(() => {
+        if (window.twttr && window.twttr.widgets) {
+          window.twttr.widgets.load()
+        }
+      }, 100)
+
+      return () => clearTimeout(timer)
+    }
+  }, [url])
+
   if (!url) {
     return <p>{children}</p>
   }
@@ -35,7 +70,8 @@ const UrlEmbed: React.FC<UrlEmbedProps> = ({ children }) => {
           <iframe
             src={`https://www.youtube.com/embed/${videoId}`}
             title="YouTube video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowFullScreen
           />
         </div>
@@ -59,8 +95,10 @@ const UrlEmbed: React.FC<UrlEmbedProps> = ({ children }) => {
       <div className="url-card nicovideo-card">
         <div className="url-card-embed">
           <iframe
-            src={`https://embed.nicovideo.jp/watch/${videoId}?persistence=1`}
-            allow="autoplay; encrypted-media"
+            src={`https://embed.nicovideo.jp/watch/${videoId}`}
+            title="Nicovideo player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           />
         </div>
@@ -84,7 +122,7 @@ const UrlEmbed: React.FC<UrlEmbedProps> = ({ children }) => {
     return (
       <div className="url-card twitter-card">
         <div className="url-card-embed">
-          <blockquote className="twitter-tweet">
+          <blockquote className="twitter-tweet" data-theme="light">
             <a href={`https://twitter.com/${username}/status/${tweetId}`}>
               ツイートを読み込み中...
             </a>
@@ -104,6 +142,17 @@ const UrlEmbed: React.FC<UrlEmbedProps> = ({ children }) => {
 
   // マッチしない場合は通常の段落として表示
   return <p>{children}</p>
+}
+
+// TypeScript declarations
+declare global {
+  interface Window {
+    twttr?: {
+      widgets: {
+        load: () => void
+      }
+    }
+  }
 }
 
 export default UrlEmbed
