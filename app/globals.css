@@ -564,8 +564,24 @@ body.dark-mode .theme-option-desc {
     transition: var(--transition-base);
 }
 
+/* 記事カードの絵文字背景 */
 .article-card::after {
-    display: none !important;
+    content: attr(data-emoji);
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    font-size: 120px;
+    opacity: 0.08;
+    pointer-events: none;
+    z-index: 0;
+    line-height: 1;
+    user-select: none;
+    transition: var(--transition-base);
+}
+
+.article-card:hover::after {
+    opacity: 0.12;
+    transform: scale(1.1);
 }
 
 .article-card:hover::before {
@@ -584,6 +600,8 @@ body.dark-mode .theme-option-desc {
     color: var(--text-primary);
     margin-bottom: 12px;
     line-height: 1.4;
+    position: relative;
+    z-index: 1;
 }
 
 .article-card-date {
@@ -592,6 +610,8 @@ body.dark-mode .theme-option-desc {
     display: flex;
     align-items: center;
     gap: 6px;
+    position: relative;
+    z-index: 1;
 }
 
 .article-card-date::before {
@@ -603,6 +623,8 @@ body.dark-mode .theme-option-desc {
     flex-wrap: wrap;
     gap: 8px;
     margin-top: 12px;
+    position: relative;
+    z-index: 1;
 }
 
 .article-card-tag {
@@ -632,6 +654,8 @@ body.dark-mode .theme-option-desc {
     margin-top: 12px;
     padding-top: 12px;
     border-top: 1px solid var(--border-color);
+    position: relative;
+    z-index: 1;
 }
 
 .article-link-badge {
