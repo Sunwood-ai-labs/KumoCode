@@ -15,7 +15,14 @@
 ---
 title: 記事のタイトル
 date: 2025-11-16
-tags: [Next.js, React, Markdown]
+tags:
+  - Next.js
+  - React
+  - Markdown
+author:
+  name: 著者名
+  github: github-username
+  twitter: twitter-username
 ---
 
 # 見出し
@@ -27,7 +34,12 @@ tags: [Next.js, React, Markdown]
 
 - **title** (必須): 記事のタイトル
 - **date** (必須): 公開日（YYYY-MM-DD形式）
-- **tags** (オプション): タグの配列
+- **tags** (オプション): タグの配列（YAMLリスト形式）
+- **author** (オプション): 著者情報
+  - **name**: 著者名
+  - **github**: GitHubユーザー名
+  - **twitter**: Twitterユーザー名
+  - **avatar**: アバター画像URL（省略時はGitHubまたはTwitterから自動取得）
 
 ### Markdownの記法
 
@@ -198,8 +210,29 @@ NEXT_PUBLIC_DEFAULT_THEME=ocean
 記事を分類しやすくするため、適切なタグを付けることを推奨します：
 
 ```yaml
-tags: [Next.js, React, Tutorial]
+tags:
+  - Next.js
+  - React
+  - Tutorial
 ```
+
+**注**: 従来の配列形式 `tags: [Next.js, React, Tutorial]` も引き続きサポートされています。
+
+### 著者情報の設定
+
+著者情報を追加することで、記事に著者プロフィールを表示できます：
+
+```yaml
+author:
+  name: 著者名
+  github: github-username
+  twitter: twitter-username
+```
+
+**自動アバター取得**:
+- GitHubユーザー名が指定されている場合、GitHubのプロフィール画像を自動取得します
+- Twitterユーザー名のみの場合、Unavatar経由でTwitterのプロフィール画像を取得します
+- カスタムアバター画像を使用する場合は、`avatar`フィールドに画像URLを指定できます
 
 ## 次のステップ
 

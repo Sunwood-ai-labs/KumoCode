@@ -1,7 +1,14 @@
 ---
 title: Docker基礎 - コンテナ技術入門
 date: 2025-11-08
-tags: [Docker, DevOps, Container]
+tags:
+  - Docker
+  - DevOps
+  - Container
+author:
+  name: Maki Sunwood
+  github: Sunwood-ai-labs
+  twitter: hAru_mAki_ch
 ---
 
 # Docker基礎 - コンテナ技術入門

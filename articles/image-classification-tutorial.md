@@ -1,7 +1,15 @@
 ---
 title: PyTorchで画像分類モデルを構築する
 date: 2025-11-17
-tags: [PyTorch, Deep Learning, Computer Vision, Tutorial]
+tags:
+  - PyTorch
+  - Deep Learning
+  - Computer Vision
+  - Tutorial
+author:
+  name: Maki Sunwood
+  github: Sunwood-ai-labs
+  twitter: hAru_mAki_ch
 colabUrl: https://colab.research.google.com/github/pytorch/tutorials/blob/gh-pages/_downloads/cifar10_tutorial.ipynb
 demoUrl: https://huggingface.co/spaces/pytorch/ResNet-CIFAR10
 repoUrl: https://github.com/pytorch/vision

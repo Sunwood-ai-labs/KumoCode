@@ -1,7 +1,14 @@
 ---
 title: TypeScript ベストプラクティス 2025
 date: 2025-11-12
-tags: [TypeScript, JavaScript, Best Practices]
+tags:
+  - TypeScript
+  - JavaScript
+  - Best Practices
+author:
+  name: Maki Sunwood
+  github: Sunwood-ai-labs
+  twitter: hAru_mAki_ch
 ---
 
 # TypeScript ベストプラクティス 2025

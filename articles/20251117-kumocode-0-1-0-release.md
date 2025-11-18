@@ -1,7 +1,14 @@
 ---
 title: 【リリースノート】KumoCode v0.1.0 - Next.jsベースの静的サイトジェネレーターとして刷新
 date: 2025-11-18
-tags: [typescript, nextjs, ssg]
+tags:
+  - TypeScript
+  - Next.js
+  - SSG
+author:
+  name: Maki Sunwood
+  github: Sunwood-ai-labs
+  twitter: hAru_mAki_ch
 ---
 
 ![imagen-4-ultra_2025-11-17T13-37-40-348Z_A_stylized_sculpture_of_a_drifting_cloud_woven_wit_1.png](https://raw.githubusercontent.com/Sunwood-ai-labs/KumoCode/main/generated-images/release-v0.1.0-20251117_133650/imagen-4-ultra_2025-11-17T13-37-40-348Z_A_stylized_sculpture_of_a_drifting_cloud_woven_wit_1.png)

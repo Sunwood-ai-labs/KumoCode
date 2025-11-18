@@ -4,11 +4,19 @@ import matter from 'gray-matter'
 
 const articlesDirectory = path.join(process.cwd(), 'articles')
 
+export interface Author {
+  name: string
+  github?: string
+  twitter?: string
+  avatar?: string
+}
+
 export interface ArticleMeta {
   slug: string
   title: string
   date: string
   tags: string[]
+  author?: Author
   colabUrl?: string
   demoUrl?: string
   repoUrl?: string
@@ -81,6 +89,31 @@ function generateEmoji(slug: string): string {
 }
 
 /**
+ * 著者情報を処理する
+ */
+function processAuthor(authorData: any): Author | undefined {
+  if (!authorData) return undefined
+
+  const author: Author = {
+    name: authorData.name || 'Unknown Author',
+    github: authorData.github,
+    twitter: authorData.twitter,
+    avatar: authorData.avatar,
+  }
+
+  // アバターが指定されていない場合、GitHubまたはTwitterから自動生成
+  if (!author.avatar) {
+    if (author.github) {
+      author.avatar = `https://github.com/${author.github}.png`
+    } else if (author.twitter) {
+      author.avatar = `https://unavatar.io/twitter/${author.twitter}`
+    }
+  }
+
+  return author
+}
+
+/**
  * すべての記事のメタデータを取得
  */
 export function getAllArticles(): ArticleMeta[] {
@@ -98,6 +131,7 @@ export function getAllArticles(): ArticleMeta[] {
         title: data.title || slug,
         date: data.date || '',
         tags: data.tags || [],
+        author: processAuthor(data.author),
         colabUrl: data.colabUrl,
         demoUrl: data.demoUrl,
         repoUrl: data.repoUrl,
@@ -129,6 +163,7 @@ export function getArticleBySlug(slug: string): Article {
     title: data.title || slug,
     date: data.date || '',
     tags: data.tags || [],
+    author: processAuthor(data.author),
     colabUrl: data.colabUrl,
     demoUrl: data.demoUrl,
     repoUrl: data.repoUrl,
