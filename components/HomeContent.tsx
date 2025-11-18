@@ -97,6 +97,10 @@ export default function HomeContent({ articles }: HomeContentProps) {
                   key={article.slug}
                   href={`/articles/${article.slug}`}
                   className="article-card"
+                  data-emoji={article.emoji}
+                  style={{
+                    background: article.gradient || 'var(--card-bg)'
+                  }}
                 >
                   <div className="article-card-title">{article.title}</div>
                   <div className="article-card-date">
