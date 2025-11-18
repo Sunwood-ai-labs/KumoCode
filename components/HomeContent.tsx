@@ -13,6 +13,9 @@ export default function HomeContent({ articles }: HomeContentProps) {
   const searchParams = useSearchParams()
   const router = useRouter()
   const selectedTag = searchParams.get('tag')
+  const hasColab = searchParams.get('hasColab') === 'true'
+  const hasRepo = searchParams.get('hasRepo') === 'true'
+  const hasDemo = searchParams.get('hasDemo') === 'true'
 
   // 全てのタグを収集し、使用頻度をカウント
   const tagCounts = articles.reduce((acc, article) => {
@@ -25,10 +28,30 @@ export default function HomeContent({ articles }: HomeContentProps) {
   // タグを使用頻度順にソート
   const allTags = Object.keys(tagCounts).sort((a, b) => tagCounts[b] - tagCounts[a])
 
-  // タグでフィルタリング
-  const filteredArticles = selectedTag
-    ? articles.filter((article) => article.tags.includes(selectedTag))
-    : articles
+  // 複数条件でフィルタリング
+  const filteredArticles = articles.filter((article) => {
+    // タグフィルター
+    if (selectedTag && !article.tags.includes(selectedTag)) {
+      return false
+    }
+
+    // Google Colabフィルター
+    if (hasColab && !article.colabUrl) {
+      return false
+    }
+
+    // リポジトリフィルター
+    if (hasRepo && !article.repoUrl) {
+      return false
+    }
+
+    // デモフィルター
+    if (hasDemo && !article.demoUrl) {
+      return false
+    }
+
+    return true
+  })
 
   const handleTagClick = (tag: string) => {
     if (selectedTag === tag) {
@@ -52,6 +75,9 @@ export default function HomeContent({ articles }: HomeContentProps) {
           tagCounts={tagCounts}
           selectedTag={selectedTag}
           articleCount={filteredArticles.length}
+          hasColab={hasColab}
+          hasRepo={hasRepo}
+          hasDemo={hasDemo}
         />
 
         {/* メインコンテンツ: 記事一覧 */}
