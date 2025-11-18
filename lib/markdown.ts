@@ -22,21 +22,21 @@ export interface Article extends ArticleMeta {
 
 // テーマカラーに合わせたグラデーションパレット（パステルカラー）
 const gradientPalettes = [
-  'linear-gradient(135deg, rgba(179, 186, 255, 0.3) 0%, rgba(192, 192, 224, 0.3) 100%)',
-  'linear-gradient(135deg, rgba(255, 200, 221, 0.3) 0%, rgba(255, 175, 189, 0.3) 100%)',
-  'linear-gradient(135deg, rgba(162, 210, 255, 0.3) 0%, rgba(178, 255, 255, 0.3) 100%)',
-  'linear-gradient(135deg, rgba(178, 255, 213, 0.3) 0%, rgba(178, 255, 234, 0.3) 100%)',
-  'linear-gradient(135deg, rgba(255, 198, 201, 0.3) 0%, rgba(255, 236, 179, 0.3) 100%)',
-  'linear-gradient(135deg, rgba(178, 235, 242, 0.3) 0%, rgba(178, 190, 235, 0.3) 100%)',
-  'linear-gradient(135deg, rgba(224, 242, 254, 0.3) 0%, rgba(254, 235, 244, 0.3) 100%)',
-  'linear-gradient(135deg, rgba(255, 218, 221, 0.3) 0%, rgba(254, 235, 253, 0.3) 100%)',
-  'linear-gradient(135deg, rgba(255, 245, 225, 0.3) 0%, rgba(254, 228, 208, 0.3) 100%)',
-  'linear-gradient(135deg, rgba(255, 200, 209, 0.3) 0%, rgba(221, 250, 255, 0.3) 100%)',
-  'linear-gradient(135deg, rgba(240, 223, 254, 0.3) 0%, rgba(198, 235, 254, 0.3) 100%)',
-  'linear-gradient(135deg, rgba(255, 210, 250, 0.3) 0%, rgba(255, 190, 200, 0.3) 100%)',
-  'linear-gradient(135deg, rgba(253, 251, 251, 0.3) 0%, rgba(235, 237, 238, 0.3) 100%)',
-  'linear-gradient(135deg, rgba(207, 224, 255, 0.3) 0%, rgba(224, 247, 253, 0.3) 100%)',
-  'linear-gradient(135deg, rgba(236, 208, 230, 0.3) 0%, rgba(254, 249, 239, 0.3) 100%)',
+  'linear-gradient(135deg, rgba(179, 186, 255, 0.2) 0%, rgba(192, 192, 224, 0.2) 100%)',
+  'linear-gradient(135deg, rgba(255, 200, 221, 0.2) 0%, rgba(255, 175, 189, 0.2) 100%)',
+  'linear-gradient(135deg, rgba(162, 210, 255, 0.2) 0%, rgba(178, 255, 255, 0.2) 100%)',
+  'linear-gradient(135deg, rgba(178, 255, 213, 0.2) 0%, rgba(178, 255, 234, 0.2) 100%)',
+  'linear-gradient(135deg, rgba(255, 198, 201, 0.2) 0%, rgba(255, 236, 179, 0.2) 100%)',
+  'linear-gradient(135deg, rgba(178, 235, 242, 0.2) 0%, rgba(178, 190, 235, 0.2) 100%)',
+  'linear-gradient(135deg, rgba(224, 242, 254, 0.2) 0%, rgba(254, 235, 244, 0.2) 100%)',
+  'linear-gradient(135deg, rgba(255, 218, 221, 0.2) 0%, rgba(254, 235, 253, 0.2) 100%)',
+  'linear-gradient(135deg, rgba(255, 245, 225, 0.2) 0%, rgba(254, 228, 208, 0.2) 100%)',
+  'linear-gradient(135deg, rgba(255, 200, 209, 0.2) 0%, rgba(221, 250, 255, 0.2) 100%)',
+  'linear-gradient(135deg, rgba(240, 223, 254, 0.2) 0%, rgba(198, 235, 254, 0.2) 100%)',
+  'linear-gradient(135deg, rgba(255, 210, 250, 0.2) 0%, rgba(255, 190, 200, 0.2) 100%)',
+  'linear-gradient(135deg, rgba(253, 251, 251, 0.2) 0%, rgba(235, 237, 238, 0.2) 100%)',
+  'linear-gradient(135deg, rgba(207, 224, 255, 0.2) 0%, rgba(224, 247, 253, 0.2) 100%)',
+  'linear-gradient(135deg, rgba(236, 208, 230, 0.2) 0%, rgba(254, 249, 239, 0.2) 100%)',
 ]
 
 // 記事カードに使用する絵文字リスト
