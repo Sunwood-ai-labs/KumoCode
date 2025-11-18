@@ -832,10 +832,6 @@ body.dark-mode .theme-option-desc {
     transition: var(--transition-base);
     width: 420px;
     flex-shrink: 0;
-    position: sticky;
-    top: 24px;
-    max-height: calc(100vh - 48px);
-    overflow-y: auto;
 }
 
 .tag-filter-sidebar:hover {
