@@ -97,7 +97,7 @@ body {
 
 .main-wrapper {
     flex: 1;
-    max-width: 1200px;
+    max-width: 1500px;
     margin: 0 auto;
     width: 100%;
     padding: 40px 24px;
@@ -532,9 +532,8 @@ body.dark-mode .theme-option-desc {
 .article-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 24px;
-    max-width: 900px;
-    margin: 0 auto;
+    gap: 28px;
+    width: 100%;
 }
 
 .article-card {
@@ -542,7 +541,7 @@ body.dark-mode .theme-option-desc {
     backdrop-filter: var(--blur-md);
     border: 1px solid var(--border-color);
     border-radius: 16px;
-    padding: 24px;
+    padding: 28px 32px;
     cursor: pointer;
     transition: var(--transition-base);
     box-shadow: var(--shadow-sm);
@@ -580,7 +579,7 @@ body.dark-mode .theme-option-desc {
 }
 
 .article-card-title {
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 700;
     color: var(--text-primary);
     margin-bottom: 12px;
@@ -588,7 +587,7 @@ body.dark-mode .theme-option-desc {
 }
 
 .article-card-date {
-    font-size: 14px;
+    font-size: 15px;
     color: var(--text-tertiary);
     display: flex;
     align-items: center;
@@ -610,9 +609,9 @@ body.dark-mode .theme-option-desc {
     display: inline-block;
     background: var(--gradient-tag);
     color: var(--tag-text);
-    padding: 4px 12px;
+    padding: 6px 14px;
     border-radius: 12px;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 500;
     cursor: pointer;
     transition: var(--transition-fast);
@@ -782,6 +781,362 @@ body.dark-mode .theme-option-desc {
 }
 
 /* ==========================================
+   Tag Filter Sidebar (Left Sidebar)
+   ========================================== */
+.home-with-sidebar {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+}
+
+.tag-filter-sidebar {
+    background: var(--card-bg);
+    backdrop-filter: var(--blur-md);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition-base);
+    width: 420px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 24px;
+    max-height: calc(100vh - 48px);
+    overflow-y: auto;
+}
+
+.tag-filter-sidebar:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.tag-filter-sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--border-color);
+    position: relative;
+}
+
+.tag-filter-sidebar-header::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary-color) 0%, var(--accent-color) 100%);
+}
+
+.tag-filter-sidebar-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.clear-filter-btn-sidebar {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    font-size: 14px;
+    padding: 0;
+}
+
+.clear-filter-btn-sidebar:hover {
+    background: var(--primary-hover);
+    transform: scale(1.1);
+}
+
+.selected-tag-info-sidebar {
+    background: linear-gradient(90deg, rgba(99, 102, 241, 0.1) 0%, transparent 100%);
+    border-left: 3px solid var(--primary-color);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.selected-tag-info-sidebar strong {
+    color: var(--primary-color);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.selected-tag-info-sidebar .article-count {
+    color: var(--text-secondary);
+    font-size: 12px;
+}
+
+.tag-filter-list-sidebar {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.tag-filter-item-sidebar {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    box-shadow: var(--shadow-sm);
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.tag-filter-item-sidebar::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--primary-color) 0%, var(--accent-color) 100%);
+    transform: scaleY(0);
+    transition: var(--transition-base);
+}
+
+.tag-filter-item-sidebar:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    transform: translateX(4px);
+    box-shadow: var(--shadow-md);
+}
+
+.tag-filter-item-sidebar:hover::before {
+    transform: scaleY(1);
+}
+
+.tag-filter-item-sidebar.active {
+    background: linear-gradient(90deg, rgba(99, 102, 241, 0.15) 0%, transparent 100%);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    font-weight: 700;
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+}
+
+.tag-filter-item-sidebar.active::before {
+    transform: scaleY(1);
+}
+
+.tag-filter-item-sidebar .tag-name {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tag-filter-item-sidebar .tag-count {
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--primary-color);
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+    min-width: 24px;
+    text-align: center;
+}
+
+.tag-filter-item-sidebar:hover .tag-count {
+    background: var(--primary-color);
+    color: white;
+}
+
+.tag-filter-item-sidebar.active .tag-count {
+    background: var(--primary-color);
+    color: white;
+}
+
+/* Filter sections */
+.additional-filters,
+.tag-filter-section {
+    margin-bottom: 24px;
+}
+
+.filter-section-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 12px 0;
+    padding-left: 4px;
+}
+
+/* Checkbox filters */
+.filter-checkboxes {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.filter-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    position: relative;
+    overflow: hidden;
+}
+
+.filter-checkbox::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--primary-color) 0%, var(--accent-color) 100%);
+    transform: scaleY(0);
+    transition: var(--transition-base);
+}
+
+.filter-checkbox:hover {
+    border-color: var(--primary-color);
+    background: rgba(99, 102, 241, 0.05);
+    transform: translateX(2px);
+}
+
+.filter-checkbox:hover::before {
+    transform: scaleY(1);
+}
+
+.filter-checkbox.active {
+    background: linear-gradient(90deg, rgba(99, 102, 241, 0.15) 0%, transparent 100%);
+    border-color: var(--primary-color);
+    transform: translateX(2px);
+}
+
+.filter-checkbox.active::before {
+    transform: scaleY(1);
+}
+
+.filter-checkbox input[type="checkbox"] {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--card-bg);
+    cursor: pointer;
+    transition: var(--transition-fast);
+    flex-shrink: 0;
+    position: relative;
+    margin: 0;
+}
+
+.filter-checkbox input[type="checkbox"]:checked {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.filter-checkbox input[type="checkbox"]:checked::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.checkbox-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.checkbox-icon svg {
+    width: 100%;
+    height: 100%;
+    color: var(--text-secondary);
+    transition: var(--transition-fast);
+}
+
+.filter-checkbox.active .checkbox-icon svg {
+    color: var(--primary-color);
+}
+
+.checkbox-label {
+    flex: 1;
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 500;
+    user-select: none;
+}
+
+.filter-checkbox.active .checkbox-label {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.home-content-wrapper {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Responsive adjustments for sidebar */
+@media (max-width: 1024px) {
+    .home-with-sidebar {
+        flex-direction: column;
+    }
+
+    .tag-filter-sidebar {
+        position: static;
+        width: 100%;
+        max-height: none;
+        margin-bottom: 32px;
+    }
+
+    .tag-filter-list-sidebar {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .tag-filter-list-sidebar {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .tag-filter-list-sidebar {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==========================================
    Article Tags (in article page)
    ========================================== */
 .article-tags {
@@ -907,8 +1262,6 @@ body.dark-mode .theme-option-desc {
     flex-shrink: 0;
     position: sticky;
     top: 24px;
-    max-height: calc(100vh - 48px);
-    overflow-y: auto;
 }
 
 .toc.visible {
