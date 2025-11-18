@@ -103,8 +103,22 @@ export default function HomeContent({ articles }: HomeContentProps) {
                   }}
                 >
                   <div className="article-card-title">{article.title}</div>
-                  <div className="article-card-date">
-                    {new Date(article.date).toLocaleDateString('ja-JP')}
+                  <div className="article-card-meta">
+                    <div className="article-card-date">
+                      {new Date(article.date).toLocaleDateString('ja-JP')}
+                    </div>
+                    {article.author && (
+                      <div className="article-card-author">
+                        {article.author.avatar && (
+                          <img
+                            src={article.author.avatar}
+                            alt={article.author.name}
+                            className="article-card-author-avatar"
+                          />
+                        )}
+                        <span className="article-card-author-name">{article.author.name}</span>
+                      </div>
+                    )}
                   </div>
                   {article.tags && article.tags.length > 0 && (
                     <div className="article-card-tags">

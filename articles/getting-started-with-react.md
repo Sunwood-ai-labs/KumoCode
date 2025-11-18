@@ -1,7 +1,14 @@
 ---
 title: React入門 - モダンなWebアプリケーション開発
 date: 2025-11-10
-tags: [React, JavaScript, Frontend]
+tags:
+  - React
+  - JavaScript
+  - Frontend
+author:
+  name: Maki Sunwood
+  github: Sunwood-ai-labs
+  twitter: hAru_mAki_ch
 ---
 
 # React入門 - モダンなWebアプリケーション開発

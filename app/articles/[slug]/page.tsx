@@ -9,6 +9,7 @@ import { getAllArticleSlugs, getArticleBySlug } from '@/lib/markdown'
 import Header from '@/components/Header'
 import TableOfContents from '@/components/TableOfContents'
 import ArticleTags from '@/components/ArticleTags'
+import AuthorInfo from '@/components/AuthorInfo'
 import FrontmatterLinks from '@/components/FrontmatterLinks'
 import { YoutubeEmbed, TwitterEmbed, NicovideoEmbed } from '@/components/EmbedComponents'
 import Link from 'next/link'
@@ -57,6 +58,9 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
                 <ArticleTags tags={article.tags} />
               </div>
             </header>
+
+            {/* Author Info */}
+            {article.author && <AuthorInfo author={article.author} />}
 
             {/* Article with TOC Sidebar */}
             <div className="article-with-toc">
